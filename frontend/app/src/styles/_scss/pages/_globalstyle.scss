@@ -1,0 +1,102 @@
+body {
+  font-family: $font1;
+  color: $color-grey;
+  font-size: 14px;
+  letter-spacing: 1px;
+  @include respond-to('small') {
+    font-size: 16px;
+  }
+  .title {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    font-family: $font2;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 52px;
+    position: relative;
+    padding: 40px 0;
+    color: blue;
+    @include respond-to('medium') {
+      font-size: 30px;
+    }
+    @include respond-to('small') {
+      font-size: 25px;
+    }
+  }
+
+  h2 {
+    font-family: $font2;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 43px;
+    padding: 32px 0 25px;
+    @include respond-to('medium') {
+      font-size: 25px;
+    }
+    @include respond-to('small') {
+      font-size: 20px;
+    }
+  }
+
+  h3 {
+    font-family: $font1;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 28px;
+    padding: 25px 0 18px;
+    @include respond-to('small') {
+      font-size: 22px;
+      margin: 4px 0;
+      line-height: 27px;
+    }
+  }
+
+  h4 {
+    font-family: $font1;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 20px 0;
+    @include respond-to('small') {
+      font-size: 14px;
+    }
+  }
+
+  p {
+    font-family: $font1;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0;
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul {
+    margin: 20px 0;
+    li {
+      margin: 10px 0;
+      list-style-position: inside;
+    }
+  }
+}
+
+.seperator-right {
+  position: relative;
+  padding-right: 15px;
+  &:before {
+    background: $color-white;
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    content: '';
+  }
+}

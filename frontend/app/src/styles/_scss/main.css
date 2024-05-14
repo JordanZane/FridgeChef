@@ -1,0 +1,136 @@
+/*Breakpoints with Bootstrap*/
+/*Breakpoints*/
+@keyframes showUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-70px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fadeRight {
+  0% {
+    opacity: 0;
+    transform: translate(70px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes paperUp {
+  0% {
+    opacity: 0;
+    transform: rotate(5deg) translate(0, 100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+body {
+  font-family: "Verdana";
+  color: rgb(7, 7, 7);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+body .title {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+body h1 {
+  font-family: "Verdana";
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  position: relative;
+  padding: 40px 0;
+  color: blue;
+}
+body h2 {
+  font-family: "Verdana";
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 43px;
+  padding: 32px 0 25px;
+}
+body h3 {
+  font-family: "Verdana";
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 28px;
+  padding: 25px 0 18px;
+}
+body h4 {
+  font-family: "Verdana";
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  padding: 20px 0;
+}
+body p {
+  font-family: "Verdana";
+  font-size: 14px;
+  line-height: 20px;
+  margin: 10px 0;
+}
+body p a {
+  text-decoration: underline;
+}
+body p a:hover {
+  text-decoration: none;
+}
+body ul {
+  margin: 20px 0;
+}
+body ul li {
+  margin: 10px 0;
+  list-style-position: inside;
+}
+
+.seperator-right {
+  position: relative;
+  padding-right: 15px;
+}
+.seperator-right:before {
+  background: rgb(255, 255, 255);
+  height: 100%;
+  width: 1px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: "";
+}/*# sourceMappingURL=main.css.map */
