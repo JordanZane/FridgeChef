@@ -1,3 +1,57 @@
-header{
-    
+header {
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    nav {
+      ul {
+        display: flex;
+        list-style-type: none;
+        li {
+          display: flex;
+          align-items: center;
+          margin-right: 20px;
+          font-weight: bold;
+          text-transform: uppercase;
+          &:last-child {
+            margin-right: 0;
+          }
+          a {
+            text-decoration: none;
+            position: relative;
+            &:visited {
+              color: $color-black;
+            }
+            &.active {
+              &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                margin: 0 12.5%;
+                top: 25px;
+                height: 2px;
+                background-color: $color-primary;
+                animation: growWidth75 linear 0.4s forwards;
+              }
+            }
+          }
+          button {
+            display: flex;
+            align-items: center;
+            border: none;
+            background: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0;
+            .user-icon-button {
+              width: 33px;
+            }
+            .contact-form-button {
+              position: relative;
+              top: -5px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

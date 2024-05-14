@@ -1,4 +1,3 @@
-/*Breakpoints with Bootstrap*/
 /*Breakpoints*/
 @keyframes showUp {
   0% {
@@ -40,39 +39,83 @@
     transform: translate(0, 0);
   }
 }
-@keyframes paperUp {
+@keyframes growWidth75 {
   0% {
-    opacity: 0;
-    transform: rotate(5deg) translate(0, 100px);
+    width: 0%;
   }
   100% {
-    opacity: 1;
-    transform: translate(0, 0);
+    width: 75%;
   }
 }
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+header .navigation {
+  display: flex;
+  justify-content: space-between;
 }
+header .navigation nav ul {
+  display: flex;
+  list-style-type: none;
+}
+header .navigation nav ul li {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+header .navigation nav ul li:last-child {
+  margin-right: 0;
+}
+header .navigation nav ul li a {
+  text-decoration: none;
+  position: relative;
+}
+header .navigation nav ul li a:visited {
+  color: rgb(0, 0, 0);
+}
+header .navigation nav ul li a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  margin: 0 12.5%;
+  top: 25px;
+  height: 2px;
+  background-color: #e76f51;
+  animation: growWidth75 linear 0.4s forwards;
+}
+header .navigation nav ul li button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0;
+}
+header .navigation nav ul li button .user-icon-button {
+  width: 33px;
+}
+header .navigation nav ul li button .contact-form-button {
+  position: relative;
+  top: -5px;
+}
+
 body {
-  font-family: "Verdana";
-  color: rgb(7, 7, 7);
-  font-size: 14px;
+  font-family: "Roboto";
+  color: rgb(0, 0, 0);
+  font-size: 18px;
   letter-spacing: 1px;
+}
+body .container {
+  margin: auto;
+  max-width: 1600px;
+  padding: 0 25px;
 }
 body .title {
   margin-top: 50px;
   margin-bottom: 30px;
 }
 body h1 {
-  font-family: "Verdana";
+  font-family: "Lobster", sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
@@ -81,29 +124,29 @@ body h1 {
   color: blue;
 }
 body h2 {
-  font-family: "Verdana";
+  font-family: "Lobster", sans-serif;
   font-size: 32px;
   font-weight: 700;
   line-height: 43px;
   padding: 32px 0 25px;
 }
 body h3 {
-  font-family: "Verdana";
+  font-family: "Roboto";
   font-size: 25px;
   font-weight: 700;
   line-height: 28px;
   padding: 25px 0 18px;
 }
 body h4 {
-  font-family: "Verdana";
+  font-family: "Roboto";
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
   padding: 20px 0;
 }
 body p {
-  font-family: "Verdana";
-  font-size: 14px;
+  font-family: "Roboto";
+  font-size: 18px;
   line-height: 20px;
   margin: 10px 0;
 }
@@ -112,6 +155,11 @@ body p a {
 }
 body p a:hover {
   text-decoration: none;
+}
+body button {
+  font-family: "Roboto";
+  font-size: 18px;
+  cursor: pointer;
 }
 body ul {
   margin: 20px 0;

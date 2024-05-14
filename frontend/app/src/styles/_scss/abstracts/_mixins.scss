@@ -1,33 +1,3 @@
-/*Breakpoints with Bootstrap*/
-@mixin respond-to($breakpoint) {
-  @if $breakpoint == 'small' {
-    @media (max-width: 767px) {
-      @content;
-    }
-  }
-  @if $breakpoint == 'ipad' {
-    @media (max-width: 768px) {
-      @content;
-    }
-  } @else if $breakpoint == 'medium' {
-    @media (max-width: 992px) {
-      @content;
-    }
-  } @else if $breakpoint == 'break' {
-    @media (max-width: 999px) {
-      @content;
-    }
-  } @else if $breakpoint == 'large' {
-    @media (max-width: 1200px) {
-      @content;
-    }
-  } @else if $breakpoint == 'xlarge' {
-    @media (max-width: 1400px) {
-      @content;
-    }
-  }
-}
-
 /*Breakpoints*/
 @mixin respond-to($breakpoint) {
   @if $breakpoint == 'phones' {
