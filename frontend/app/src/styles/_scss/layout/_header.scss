@@ -2,6 +2,7 @@ header {
   .navigation {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     nav {
       ul {
         display: flex;
@@ -22,6 +23,18 @@ header {
               color: $color-black;
             }
             &.active {
+              &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                margin: 0 12.5%;
+                top: 25px;
+                height: 2px;
+                background-color: $color-primary;
+                animation: growWidth75 linear 0.4s forwards;
+              }
+            }
+            &:hover {
               &::after {
                 content: '';
                 position: absolute;
