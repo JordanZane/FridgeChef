@@ -10,14 +10,20 @@
       justify-content: center;
       max-width: 600px;
       margin: auto;
+      position: relative;
       input {
+        font-size: 16px;
         width: 90%;
-        padding: 10px;
+        padding: 15px;
         border-radius: 50px;
         border: unset;
         outline: unset;
+        color: $color-black;
+        font-weight: 600;
         &::placeholder {
           font-size: 16px;
+          color: $color-black;
+          font-weight: 600;
         }
       }
 
@@ -29,6 +35,85 @@
         padding: 0 15px;
         position: relative;
         left: -60px;
+        font-weight: 600;
+        @include transition(0.2s);
+        &:hover {
+          background-color: $color-secondary;
+        }
+      }
+      .suggestions-container {
+        position: absolute;
+        right: 110px;
+        top: 61px;
+        z-index: 2;
+        ul {
+          position: relative;
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+          background-color: $color-white;
+          border-radius: 8px;
+          &::after {
+            content: '';
+            border: 8px solid transparent;
+            border-top: 0;
+            border-bottom: 14px solid $color-white;
+            top: -14px;
+            height: 0;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%);
+            width: 0;
+          }
+          li {
+            margin: 0;
+            button {
+              background-color: unset;
+              border-radius: unset;
+              color: $color-black;
+              left: 0;
+              padding: 8px;
+              width: 100%;
+              &:hover {
+                background-color: grey;
+              }
+            }
+          }
+        }
+      }
+    }
+    .search-ingredients-container {
+      max-width: 800px;
+      margin: auto;
+      z-index: 1;
+      ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0;
+        list-style-type: none;
+        li {
+          margin-right: 30px;
+          background-color: $color-primary;
+          color: $color-white;
+          border-radius: 50px;
+          padding: 10px 20px;
+          position: relative;
+          font-weight: 600;
+          font-size: 16px;
+          &:last-child {
+            margin-right: 0;
+          }
+          button {
+            background: unset;
+            border: unset;
+            position: absolute;
+            top: 0;
+            right: 4px;
+            color: $color-white;
+            font-size: 14px;
+          }
+        }
       }
     }
   }
