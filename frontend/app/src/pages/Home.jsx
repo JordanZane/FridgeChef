@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import likesIcon from '../assets/likes-icon.svg';
 
 const Home = () => {
   const [inputText, setInputText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [ingredientsSearch, setIngredientsSearch] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const maxTitleLength = 30;
 
   const ApiKey = process.env.REACT_APP_API_KEY;
 
@@ -44,6 +47,36 @@ const Home = () => {
     setInputText(Suggestiontext);
     setSuggestions([]);
   };
+
+  const fetchRecipes = () => {
+    const ingredients = ingredientsSearch.join(',+');
+    fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=48&apiKey=${ApiKey}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error fetching recipes');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setRecipes(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching recipes:', error);
+      });
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '...';
+  };
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [ingredientsSearch]);
 
   return (
     <main className="home">
@@ -102,6 +135,30 @@ const Home = () => {
       <div className="recipes-find-container">
         <div className="container">
           <h2>Recipes</h2>
+          <div className="recipes-container">
+            <ul>
+              {recipes.map((recipe) => (
+                <li key={recipe.id}>
+                  <div className="recipes-infos">
+                    <div className="likes-container">
+                      <img src={likesIcon} alt="Likes" />
+                      {recipe.likes}
+                    </div>
+                    <h3 title={recipe.title}>
+                      {truncateText(recipe.title, maxTitleLength)}
+                    </h3>
+                    <div className="img-container">
+                      <img
+                        title={recipe.title}
+                        src={recipe.image}
+                        alt={recipe.title}
+                      />
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </main>

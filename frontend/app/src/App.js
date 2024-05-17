@@ -8,7 +8,7 @@ import UserRecipes from './pages/UserRecipes';
 import './styles/_scss/main.scss';
 
 function App() {
-  const [isUserLogIn, setIsUserLogIn] = useState(true);
+  const [isUserLogIn, setIsUserLogIn] = useState(false);
 
   return (
     <BrowserRouter>
