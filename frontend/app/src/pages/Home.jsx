@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import likesIcon from '../assets/likes-icon.svg';
+import RecipeCard from '../components/RecipeCard';
 
 const Home = () => {
   const [inputText, setInputText] = useState('');
@@ -115,19 +116,10 @@ const Home = () => {
 
           <div className="search-ingredients-container">
             <ul>
-              {ingredientsSearch.map((ingredient, index) => (
-                <li key={index}>
-                  {ingredient}
-                  <div className="remove-btn-container">
-                    <button
-                      onClick={() => handleRemoveIngredients(index)}
-                      className="remove-btn"
-                    >
-                      x
-                    </button>
-                  </div>
-                </li>
-              ))}
+              <RecipeCard
+                ingredientsSearch={ingredientsSearch}
+                handleRemoveIngredients={handleRemoveIngredients}
+              />
             </ul>
           </div>
         </div>
