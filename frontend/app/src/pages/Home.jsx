@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import likesIcon from '../assets/likes-icon.svg';
 import RecipeCard from '../components/RecipeCard';
 
 const Home = () => {
@@ -7,7 +6,6 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [ingredientsSearch, setIngredientsSearch] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const maxTitleLength = 30;
 
   const ApiKey = process.env.REACT_APP_API_KEY;
 
@@ -68,13 +66,6 @@ const Home = () => {
       });
   };
 
-  const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    return text.substring(0, maxLength) + '...';
-  };
-
   useEffect(() => {
     fetchRecipes();
   }, [ingredientsSearch]);
@@ -116,10 +107,19 @@ const Home = () => {
 
           <div className="search-ingredients-container">
             <ul>
-              <RecipeCard
-                ingredientsSearch={ingredientsSearch}
-                handleRemoveIngredients={handleRemoveIngredients}
-              />
+              {ingredientsSearch.map((ingredient, index) => (
+                <li key={index}>
+                  {ingredient}
+                  <div className="remove-btn-container">
+                    <button
+                      onClick={() => handleRemoveIngredients(index)}
+                      className="remove-btn"
+                    >
+                      x
+                    </button>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -129,26 +129,7 @@ const Home = () => {
           <h2>Recipes</h2>
           <div className="recipes-container">
             <ul>
-              {recipes.map((recipe) => (
-                <li key={recipe.id}>
-                  <div className="recipes-infos">
-                    <div className="likes-container">
-                      <img src={likesIcon} alt="Likes" />
-                      {recipe.likes}
-                    </div>
-                    <h3 title={recipe.title}>
-                      {truncateText(recipe.title, maxTitleLength)}
-                    </h3>
-                    <div className="img-container">
-                      <img
-                        title={recipe.title}
-                        src={recipe.image}
-                        alt={recipe.title}
-                      />
-                    </div>
-                  </div>
-                </li>
-              ))}
+              <RecipeCard recipes={recipes} />
             </ul>
           </div>
         </div>
