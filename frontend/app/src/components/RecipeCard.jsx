@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import likesIcon from '../assets/likes-icon.svg';
 
 const RecipeCard = ({ recipes }) => {
+  const navigate = useNavigate();
+
+  const handleShowDetailsRecipe = (id) => {
+    navigate(`/recipe-details/${id}`);
+  };
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -11,7 +18,11 @@ const RecipeCard = ({ recipes }) => {
   return (
     <>
       {recipes.map((recipe) => (
-        <li key={recipe.id}>
+        <li
+          className="recipe-card"
+          key={recipe.id}
+          onClick={() => handleShowDetailsRecipe(recipe.id)}
+        >
           <div className="recipes-infos">
             <div className="likes-container">
               <img src={likesIcon} alt="Likes" />
