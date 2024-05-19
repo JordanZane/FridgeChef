@@ -1,7 +1,7 @@
 import React from 'react';
 import likesIcon from '../assets/likes-icon.svg';
 
-const RecipeCard = ({ recipes, handleRemoveIngredients }) => {
+const RecipeCard = ({ recipes }) => {
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
