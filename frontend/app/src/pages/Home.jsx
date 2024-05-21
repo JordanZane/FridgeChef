@@ -47,28 +47,27 @@ const Home = () => {
     setSuggestions([]);
   };
 
-  const fetchRecipes = () => {
-    const ingredients = ingredientsSearch.join(',+');
-    fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=48&apiKey=${ApiKey}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error fetching recipes');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setRecipes(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching recipes:', error);
-      });
-  };
-
   useEffect(() => {
+    const fetchRecipes = () => {
+      const ingredients = ingredientsSearch.join(',+');
+      fetch(
+        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=48&apiKey=${ApiKey}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error fetching recipes');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setRecipes(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching recipes:', error);
+        });
+    };
     fetchRecipes();
-  }, [ingredientsSearch]);
+  }, [ingredientsSearch, ApiKey]);
 
   return (
     <main className="home">

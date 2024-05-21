@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import durationIcon from '../assets/duration-icon.svg';
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -9,6 +10,25 @@ const RecipeDetails = () => {
   const ApiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
+    const fetchRecipeSteps = () => {
+      fetch(
+        `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${ApiKey}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error fetching recipe steps');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.length > 0 && data[0].steps) {
+            setRecipeSteps(data[0].steps);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching recipe steps:', error);
+        });
+    };
     fetch(
       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${ApiKey}`
     )
@@ -27,26 +47,6 @@ const RecipeDetails = () => {
       });
   }, [id, ApiKey]);
 
-  const fetchRecipeSteps = () => {
-    fetch(
-      `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${ApiKey}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error fetching recipe steps');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.length > 0 && data[0].steps) {
-          setRecipeSteps(data[0].steps);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching recipe steps:', error);
-      });
-  };
-
   if (!recipeDetails) {
     return <div>Loading...</div>;
   }
@@ -55,16 +55,17 @@ const RecipeDetails = () => {
     <main className="recipe-details-page">
       <header>
         <div className="container">
-          <div className="wrapper">
-            <img
-              src={recipeDetails.image}
-              alt={recipeDetails.title}
-              title={recipeDetails.title}
-            />
-          </div>
+          <img
+            src={recipeDetails.image}
+            alt={recipeDetails.title}
+            title={recipeDetails.title}
+          />
           <div className="likes-container">{recipeDetails.likes}</div>
           <h1>{recipeDetails.title}</h1>
-          <p>{recipeDetails.readyInMinutes}min</p>
+          <div className="duration-container">
+            <img src={durationIcon} alt="Duration" />
+            <p>{recipeDetails.readyInMinutes}min</p>
+          </div>
         </div>
       </header>
       <div className="recipe-instructions">

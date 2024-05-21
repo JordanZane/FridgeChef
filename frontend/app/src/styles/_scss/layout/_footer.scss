@@ -1,3 +1,26 @@
-footer{
-  
+footer {
+  background-color: $color-primary;
+  padding: 10px 0;
+  .footer-content {
+    display: flex;
+    align-items: center;
+    .logo-container {
+      img {
+        width: 90px;
+      }
+    }
+    p {
+      margin: 0 auto;
+      color: $color-white;
+      font-weight: 600;
+      font-size: 16px;
+      a {
+        color: $color-white;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }

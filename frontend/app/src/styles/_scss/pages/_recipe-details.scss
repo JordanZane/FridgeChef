@@ -1,5 +1,8 @@
 .recipe-details-page {
   header {
-    background-color: $color-primary;
+    background-color: $color-bg;
+    h1 {
+      color: $color-primary;
+    }
   }
 }
