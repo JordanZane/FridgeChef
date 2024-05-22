@@ -1,8 +1,25 @@
 .recipe-details-page {
   header {
     background-color: $color-bg;
-    h1 {
-      color: $color-primary;
+    padding: 20px 0;
+    .details-container {
+      display: flex;
+      align-items: center;
+
+      .details-content {
+        padding-left: 50px;
+        h1 {
+          color: $color-primary;
+          font-size: 48px;
+          padding: 0;
+          margin: 0;
+        }
+        h2 {
+          font-size: 22px;
+        }
+        .duration-container {
+        }
+      }
     }
   }
 }

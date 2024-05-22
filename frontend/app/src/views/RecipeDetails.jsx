@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import parse from 'html-react-parser';
+
 import durationIcon from '../assets/duration-icon.svg';
 
-const RecipeDetails = () => {
+const RecipeDetails = ({ isUserLogIn }) => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [recipeSteps, setRecipeSteps] = useState([]);
@@ -55,29 +57,44 @@ const RecipeDetails = () => {
     <main className="recipe-details-page">
       <header>
         <div className="container">
-          <img
-            src={recipeDetails.image}
-            alt={recipeDetails.title}
-            title={recipeDetails.title}
-          />
-          <div className="likes-container">{recipeDetails.likes}</div>
-          <h1>{recipeDetails.title}</h1>
-          <div className="duration-container">
-            <img src={durationIcon} alt="Duration" />
-            <p>{recipeDetails.readyInMinutes}min</p>
+          <div className="details-container">
+            <div className="image-container">
+              <img
+                src={recipeDetails.image}
+                alt={recipeDetails.title}
+                title={recipeDetails.title}
+              />
+            </div>
+            <div className="details-content">
+              <h1>{recipeDetails.title}</h1>
+              <p>{parse(recipeDetails.summary)}</p>
+              <div className="duration-container">
+                <img src={durationIcon} alt="Duration" />
+                <p>{recipeDetails.readyInMinutes}min</p>
+              </div>
+              {isUserLogIn && (
+                <div className="btn-container">
+                  <button>Add to favorite</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
-      <div className="recipe-instructions">
-        <h2>Steps</h2>
-        <ul>
-          {recipeSteps.map((step, index) => (
-            <li key={index}>
-              <span>Step {index}</span> {step.step}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <main>
+        <div className="container">
+          <div className="recipe-instructions">
+            <h2>Steps</h2>
+            <ul>
+              {recipeSteps.map((step, index) => (
+                <li key={index}>
+                  <span>Step {index}</span> {step.step}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </main>
     </main>
   );
 };

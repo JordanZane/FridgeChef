@@ -1,5 +1,4 @@
 import React from 'react';
-import logoWhite from '../assets/logo-white.png';
 
 const Footer = () => {
   return (
@@ -7,7 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="logo-container">
-            <img src={logoWhite} alt="FridgeChef" />
+            <img src="" alt="FridgeChef" />
           </div>
           <p>
             All rights reserved - Design & developpment by{' '}

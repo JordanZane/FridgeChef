@@ -10,7 +10,7 @@ import RecipeDetails from './views/RecipeDetails';
 import './styles/_scss/main.scss';
 
 function App() {
-  const [isUserLogIn, setIsUserLogIn] = useState(false);
+  const [isUserLogIn, setIsUserLogIn] = useState(true);
 
   return (
     <BrowserRouter>
@@ -18,7 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/my-recipes" element={<UserRecipes />}></Route>
-        <Route path="/recipe-details/:id" element={<RecipeDetails />}></Route>
+        <Route
+          path="/recipe-details/:id"
+          element={<RecipeDetails isUserLogIn={isUserLogIn} />}
+        ></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
