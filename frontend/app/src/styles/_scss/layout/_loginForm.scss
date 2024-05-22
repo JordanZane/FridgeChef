@@ -1,0 +1,20 @@
+.login-form-container {
+  h3 {
+    span {
+      color: $color-grey-text;
+      cursor: pointer;
+    }
+  }
+  p {
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .btn-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+}

@@ -3,8 +3,8 @@ import logo from '../assets/logo-full.svg';
 
 const ContactForm = ({ setShowContactForm }) => {
   return (
-    <div className="contact-form-container">
-      <form id="contact-form">
+    <div className="contact-form-container full-layout">
+      <form id="contact-form" className="form-style">
         <h3>
           Contact us <img src={logo} alt="FridgeChef" />
         </h3>
@@ -27,7 +27,7 @@ const ContactForm = ({ setShowContactForm }) => {
           <input type="email" name="email" id="email" required />
         </div>
         <div className="form-content">
-          <label htmlFor="email">Message*</label>
+          <label htmlFor="text">Message*</label>
           <textarea rows="10" name="message" id="message"></textarea>
         </div>
         <p className="required">Required*</p>
