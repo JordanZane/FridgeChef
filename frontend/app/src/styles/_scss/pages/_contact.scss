@@ -15,6 +15,9 @@
     border-radius: 12px;
     position: relative;
     min-width: 500px;
+    @include transition(0.3s);
+    animation: scaling 0.3s linear forwards;
+
     h3 {
       padding: 0;
       margin: 0;
@@ -37,10 +40,34 @@
     .form-content {
       display: flex;
       flex-direction: column;
-      input {
+      input,
+      textarea {
         padding: 10px;
+        margin-bottom: 25px;
         border: unset;
-        margin-bottom: 15px;
+        border-radius: 6px;
+      }
+      textarea {
+        margin-bottom: 0;
+      }
+    }
+    .required {
+      text-align: right;
+      font-size: 14px;
+      font-style: italic;
+    }
+    button.submit-form {
+      background-color: $color-primary;
+      color: $color-white;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 16px;
+      padding: 6px 18px;
+      border: 2px solid $color-primary;
+      @include transition(0.3s);
+      &:hover {
+        background-color: unset;
+        color: $color-primary;
       }
     }
   }
