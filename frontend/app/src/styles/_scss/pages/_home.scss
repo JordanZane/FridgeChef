@@ -68,7 +68,6 @@
           li {
             margin: 0;
             button {
-              background-color: unset;
               border-radius: unset;
               color: $color-black;
               left: 0;
@@ -105,8 +104,6 @@
             margin-right: 0;
           }
           button {
-            background: unset;
-            border: unset;
             position: absolute;
             top: 0;
             right: 4px;

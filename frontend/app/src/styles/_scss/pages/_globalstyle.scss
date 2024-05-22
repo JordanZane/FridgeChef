@@ -23,7 +23,7 @@ body {
     font-family: $font2;
     font-weight: 400;
     font-size: 98px;
-    line-height: 52px;
+    line-height: 1.5em;
     position: relative;
     padding: 40px 0;
     color: $color-white;
@@ -40,7 +40,7 @@ body {
     color: $color-primary;
     font-size: 64px;
     font-weight: 400;
-    line-height: 43px;
+    line-height: 1.5em;
     padding: 32px 0 25px;
     @include respond-to('medium') {
       font-size: 25px;
@@ -51,22 +51,23 @@ body {
   }
 
   h3 {
-    font-family: $font1;
-    font-size: 25px;
+    font-family: $font2;
+    font-size: 32px;
     font-weight: 400;
-    line-height: 28px;
+    line-height: 1.5em;
+    color: $color-primary;
+    font-weight: 600;
     padding: 25px 0 18px;
     @include respond-to('small') {
       font-size: 22px;
       margin: 4px 0;
-      line-height: 27px;
     }
   }
 
   h4 {
     font-family: $font1;
     font-size: 20px;
-    line-height: 24px;
+    line-height: 1.5em;
     font-weight: 700;
     padding: 20px 0;
     @include respond-to('small') {
@@ -91,6 +92,8 @@ body {
     font-family: $font1;
     font-size: 18px;
     cursor: pointer;
+    border: unset;
+    background: unset;
   }
 
   ul {
