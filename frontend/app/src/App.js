@@ -27,6 +27,7 @@ function App() {
         <ContactForm setShowContactForm={setShowContactForm} />
       )}
       {showLogInForm && <LoginForm setShowLogInForm={setShowLogInForm} />}
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/my-recipes" element={<UserRecipes />}></Route>
