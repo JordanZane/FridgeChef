@@ -73,8 +73,9 @@
               left: 0;
               padding: 8px;
               width: 100%;
+              background-color: $color-white;
               &:hover {
-                background-color: grey;
+                background-color: $color-bg;
               }
             }
           }
@@ -115,12 +116,13 @@
     }
   }
   .recipes-find-container {
-    padding-top: 50px;
     background-color: $color-grey;
+    padding-top: 15px;
     h2 {
-      margin-top: 0;
+      margin: 0;
     }
     .recipes-container {
+      margin-top: 15px;
       ul {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

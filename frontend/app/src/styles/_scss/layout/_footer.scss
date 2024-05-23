@@ -1,5 +1,5 @@
 footer {
-  background-color: $color-primary;
+  background-color: $color-bg;
   padding: 10px 0;
   .footer-content {
     display: flex;
@@ -11,11 +11,11 @@ footer {
     }
     p {
       margin: 0 auto;
-      color: $color-white;
+      color: $color-primary;
       font-weight: 600;
       font-size: 16px;
       a {
-        color: $color-white;
+        color: $color-primary;
         text-decoration: underline;
         &:hover {
           text-decoration: underline;

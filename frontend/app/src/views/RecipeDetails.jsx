@@ -31,6 +31,7 @@ const RecipeDetails = ({ isUserLogIn }) => {
           console.error('Error fetching recipe steps:', error);
         });
     };
+
     fetch(
       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${ApiKey}`
     )
@@ -55,7 +56,7 @@ const RecipeDetails = ({ isUserLogIn }) => {
 
   return (
     <main className="recipe-details-page">
-      <header>
+      <div className="header-details">
         <div className="container">
           <div className="details-container">
             <div className="image-container">
@@ -67,34 +68,54 @@ const RecipeDetails = ({ isUserLogIn }) => {
             </div>
             <div className="details-content">
               <h1>{recipeDetails.title}</h1>
-              <p>{parse(recipeDetails.summary)}</p>
               <div className="duration-container">
                 <img src={durationIcon} alt="Duration" />
                 <p>{recipeDetails.readyInMinutes}min</p>
               </div>
+              <p>{parse(recipeDetails.summary)}</p>
               {isUserLogIn && (
                 <div className="btn-container">
-                  <button>Add to favorite</button>
+                  <button className="btn-style">Add to favorite</button>
                 </div>
               )}
             </div>
           </div>
         </div>
-      </header>
-      <main>
-        <div className="container">
-          <div className="recipe-instructions">
-            <h2>Steps</h2>
-            <ul>
-              {recipeSteps.map((step, index) => (
-                <li key={index}>
-                  <span>Step {index}</span> {step.step}
-                </li>
-              ))}
-            </ul>
+      </div>
+      <div className="container">
+        <div className="flex-container">
+          <div className="infos-details">
+            <div className="recipe-ingredients">
+              <h2>Ingredients</h2>
+              <ul>
+                {recipeDetails.extendedIngredients.map((ingredient, index) => (
+                  <li key={index}>
+                    {ingredient.name}
+                    <div className="line"></div>
+                    <span>
+                      {ingredient.amount}
+                      {ingredient.measures.metric.unitShort}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="recipe-instructions">
+              <h2>Steps</h2>
+              <ul>
+                {recipeSteps.map((step, index) => (
+                  <li key={index}>
+                    <span>Step {index}</span> {step.step}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="similar-recipes-container">
+            <h2>Similar recipes</h2>
           </div>
         </div>
-      </main>
+      </div>
     </main>
   );
 };

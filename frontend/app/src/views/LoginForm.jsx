@@ -33,7 +33,7 @@ const LoginForm = ({ setShowLogInForm }) => {
               Doesn’t have an account ? Sign-up
             </p>
             <div className="btn-container">
-              <button className="submit-form" type="submit">
+              <button className="submit-form btn-style" type="submit">
                 Log-in
               </button>
             </div>
@@ -67,7 +67,7 @@ const LoginForm = ({ setShowLogInForm }) => {
               Already have an account? Log-in
             </p>
             <div className="btn-container">
-              <button className="submit-form" type="submit">
+              <button className="submit-form btn-style" type="submit">
                 Sign-up
               </button>
             </div>

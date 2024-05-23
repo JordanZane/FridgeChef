@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo-full.svg';
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="logo-container">
-            <img src="" alt="FridgeChef" />
+            <img src={logo} alt="FridgeChef" />
           </div>
           <p>
             All rights reserved - Design & developpment by{' '}

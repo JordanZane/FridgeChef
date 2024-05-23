@@ -12,7 +12,7 @@ import RecipeDetails from './views/RecipeDetails';
 import './styles/_scss/main.scss';
 
 function App() {
-  const [isUserLogIn, setIsUserLogIn] = useState(false);
+  const [isUserLogIn, setIsUserLogIn] = useState(true);
   const [showLogInForm, setShowLogInForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
 

@@ -31,7 +31,7 @@ const ContactForm = ({ setShowContactForm }) => {
           <textarea rows="10" name="message" id="message"></textarea>
         </div>
         <p className="required">Required*</p>
-        <button className="submit-form" type="submit">
+        <button className="submit-form btn-style" type="submit">
           Submit
         </button>
       </form>
