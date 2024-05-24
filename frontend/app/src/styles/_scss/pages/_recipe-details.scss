@@ -46,6 +46,7 @@
   }
   .flex-container {
     display: flex;
+    margin-top: 15px;
   }
   .infos-details {
     width: 80%;
@@ -69,10 +70,12 @@
       ul {
         li {
           display: flex;
+          align-items: center;
           .line {
             width: 100px;
             height: 1px;
             background-color: $color-black;
+            margin: 0 10px;
           }
         }
       }

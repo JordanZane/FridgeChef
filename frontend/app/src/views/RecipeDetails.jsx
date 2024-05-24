@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
-
+import likesIcon from '../assets/likes-icon.svg';
+import defaultImageRecipe from '../assets/default-image-recipe.jpg';
 import durationIcon from '../assets/duration-icon.svg';
 
 const RecipeDetails = ({ isUserLogIn }) => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [recipeSteps, setRecipeSteps] = useState([]);
+  const [similarRecipes, setSimilarRecipes] = useState([]);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
 
@@ -48,11 +50,29 @@ const RecipeDetails = ({ isUserLogIn }) => {
       .catch((error) => {
         console.error('Error fetching recipe details:', error);
       });
+
+    fetch(`https://api.spoonacular.com/recipes/${id}/similar/?apiKey=${ApiKey}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error fetching similar recipes');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSimilarRecipes(data);
+      });
   }, [id, ApiKey]);
 
   if (!recipeDetails) {
     return <div>Loading...</div>;
   }
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '...';
+  };
 
   return (
     <main className="recipe-details-page">
@@ -113,6 +133,27 @@ const RecipeDetails = ({ isUserLogIn }) => {
           </div>
           <div className="similar-recipes-container">
             <h2>Similar recipes</h2>
+
+            {similarRecipes.map((similarRecipe, index) => (
+              <div className="recipe-card" key={index}>
+                <div className="recipes-infos">
+                  <div className="likes-container">
+                    <img src={likesIcon} alt="Likes" />
+                    {similarRecipe.likes}
+                  </div>
+                  <h3 title={similarRecipe.title}>
+                    {truncateText(similarRecipe.title, 30)}
+                  </h3>
+                  <div className="img-container">
+                    <img
+                      title={similarRecipe.title}
+                      src={defaultImageRecipe}
+                      alt={similarRecipe.title}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
