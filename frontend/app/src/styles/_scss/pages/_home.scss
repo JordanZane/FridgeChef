@@ -118,6 +118,7 @@
   .recipes-find-container {
     background-color: $color-grey;
     padding-top: 15px;
+    padding-bottom: 40px;
     h2 {
       margin: 0;
     }
@@ -145,7 +146,7 @@
           }
           h3 {
             margin: 0;
-            padding: 25px 0 10px 0;
+            padding: 15px 0;
             font-size: 16px;
             color: $color-secondary;
             font-weight: 800;

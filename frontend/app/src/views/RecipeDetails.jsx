@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import parse from 'html-react-parser';
-import likesIcon from '../assets/likes-icon.svg';
-import defaultImageRecipe from '../assets/default-image-recipe.jpg';
 import durationIcon from '../assets/duration-icon.svg';
 
 const RecipeDetails = ({ isUserLogIn }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [similarRecipes, setSimilarRecipes] = useState([]);
@@ -63,9 +63,9 @@ const RecipeDetails = ({ isUserLogIn }) => {
       });
   }, [id, ApiKey]);
 
-  if (!recipeDetails) {
-    return <div>Loading...</div>;
-  }
+  const handleShowDetailsRecipe = (id) => {
+    navigate(`/recipe-details/${id}`);
+  };
 
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -73,6 +73,10 @@ const RecipeDetails = ({ isUserLogIn }) => {
     }
     return text.substring(0, maxLength) + '...';
   };
+
+  if (!recipeDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="recipe-details-page">
@@ -133,27 +137,21 @@ const RecipeDetails = ({ isUserLogIn }) => {
           </div>
           <div className="similar-recipes-container">
             <h2>Similar recipes</h2>
-
-            {similarRecipes.map((similarRecipe, index) => (
-              <div className="recipe-card" key={index}>
-                <div className="recipes-infos">
-                  <div className="likes-container">
-                    <img src={likesIcon} alt="Likes" />
-                    {similarRecipe.likes}
+            <ul>
+              {similarRecipes.map((similarRecipe, index) => (
+                <li
+                  className="recipe-card"
+                  key={index}
+                  onClick={() => handleShowDetailsRecipe(similarRecipe.id)}
+                >
+                  <div className="recipes-infos">
+                    <h3 title={similarRecipe.title}>
+                      {truncateText(similarRecipe.title, 50)}
+                    </h3>
                   </div>
-                  <h3 title={similarRecipe.title}>
-                    {truncateText(similarRecipe.title, 30)}
-                  </h3>
-                  <div className="img-container">
-                    <img
-                      title={similarRecipe.title}
-                      src={defaultImageRecipe}
-                      alt={similarRecipe.title}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

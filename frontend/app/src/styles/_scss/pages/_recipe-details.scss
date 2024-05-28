@@ -1,4 +1,5 @@
 .recipe-details-page {
+  margin-bottom: 40px;
   h2 {
     margin: 0;
   }
@@ -27,7 +28,7 @@
         .duration-container {
           position: absolute;
           top: 0;
-          right: 0;
+          right: -25px;
           img {
             width: 46px;
           }
@@ -50,7 +51,7 @@
   }
   .infos-details {
     width: 80%;
-    padding-right: 100px;
+    padding-right: 200px;
     .recipe-instructions {
       ul {
         padding: 0;
@@ -71,8 +72,10 @@
         li {
           display: flex;
           align-items: center;
+          margin-bottom: 20px;
+          font-size: 16px;
           .line {
-            width: 100px;
+            width: 150px;
             height: 1px;
             background-color: $color-black;
             margin: 0 10px;
@@ -83,5 +86,17 @@
   }
   .similar-recipes-container {
     width: 20%;
+    h3 {
+      text-transform: lowercase;
+      font-family: $font1;
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+    li.recipe-card {
+      list-style-type: disc;
+      list-style-position: outside;
+      cursor: pointer;
+    }
   }
 }
