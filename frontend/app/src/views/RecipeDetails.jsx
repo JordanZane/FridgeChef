@@ -114,7 +114,11 @@ const RecipeDetails = ({ isUserLogIn }) => {
               <ul>
                 {recipeDetails.extendedIngredients.map((ingredient, index) => (
                   <li key={index}>
-                    {ingredient.name}
+                    <img
+                      src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+                      alt={ingredient.name}
+                    />
+                    <span> {ingredient.name}</span>
                     <div className="line"></div>
                     <span>
                       {ingredient.amount}
@@ -129,7 +133,7 @@ const RecipeDetails = ({ isUserLogIn }) => {
               <ul>
                 {recipeSteps.map((step, index) => (
                   <li key={index}>
-                    <span>Step {index}</span> {step.step}
+                    <span>Step {index + 1}</span> {step.step}
                   </li>
                 ))}
               </ul>

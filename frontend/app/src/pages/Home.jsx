@@ -6,13 +6,13 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [ingredientsSearch, setIngredientsSearch] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [randomRecipes, setRandomRecipes] = useState([]);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
 
   const handleInputChange = (e) => {
     const userText = e.target.value;
     setInputText(userText);
-
     fetch(
       `https://api.spoonacular.com/food/ingredients/autocomplete?query=${userText}&number=5&apiKey=${ApiKey}`
     )
@@ -60,13 +60,40 @@ const Home = () => {
           return response.json();
         })
         .then((data) => {
-          setRecipes(data);
+          const sortedRecipes = data.sort((a, b) => b.likes - a.likes);
+          setRecipes(sortedRecipes);
         })
         .catch((error) => {
           console.error('Error fetching recipes:', error);
         });
     };
-    fetchRecipes();
+
+    const fetchRandomRecipes = () => {
+      fetch(
+        `https://api.spoonacular.com/recipes/random?number=48&apiKey=${ApiKey}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error fetching recipes');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const sortedRandomRecipes = data.recipes.sort(
+            (a, b) => b.aggregateLikes - a.aggregateLikes
+          );
+          setRandomRecipes(sortedRandomRecipes);
+        })
+        .catch((error) => {
+          console.error('Error fetching recipes:', error);
+        });
+    };
+
+    if (ingredientsSearch.length === 0) {
+      fetchRandomRecipes();
+    } else {
+      fetchRecipes();
+    }
   }, [ingredientsSearch, ApiKey]);
 
   return (
@@ -123,12 +150,18 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className="recipes-find-container">
         <div className="container">
           <h2>Recipes</h2>
           <div className="recipes-container">
             <ul>
               <RecipeCard recipes={recipes} />
+            </ul>
+          </div>
+          <div className="recipes-container">
+            <ul>
+              <RecipeCard recipes={randomRecipes} />
             </ul>
           </div>
         </div>
