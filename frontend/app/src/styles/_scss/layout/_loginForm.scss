@@ -17,4 +17,41 @@
     text-align: center;
     margin-top: 30px;
   }
+  .modal-container {
+    p {
+      margin: 0;
+      font-weight: 500;
+      &:hover {
+        text-decoration: none;
+      }
+      span:hover {
+        text-decoration: underline;
+      }
+    }
+    .btn-container {
+      position: absolute;
+      top: 2px;
+      right: 10px;
+      margin: 0;
+      cursor: pointer;
+    }
+  }
+  .success-signup-container {
+    background: $color-success;
+    position: relative;
+    padding: 10px 0;
+    margin-top: 30px;
+    border-radius: 6px;
+  }
+
+  .error-signup-container {
+    background: $color-error;
+    position: relative;
+    padding: 10px 0;
+    margin-top: 30px;
+    border-radius: 6px;
+    p {
+      cursor: default;
+    }
+  }
 }

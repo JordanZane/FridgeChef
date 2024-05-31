@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../assets/logo-full.svg';
 
 import SuccessSignupModal from '../modals/SignupSuccess';
+import ErrorSignupModal from '../modals/SignupError';
 
 const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,8 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
     confirmPassword: '',
   });
 
-  const [showSuccessModal, setShowSuccessModal] = useState(true);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -22,12 +24,11 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
   const handleSignup = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert('Password & confirm password doesnt match');
+      setShowErrorModal(true);
       return;
     }
 
     if (!formData.email || !formData.password || !formData.confirmPassword) {
-      alert('Fill all the fields please');
       return;
     }
 
@@ -47,9 +48,11 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
           confirmPassword: '',
         });
         setShowSuccessModal(true);
+        setShowErrorModal(false);
       })
       .catch((error) => {
         console.log('Error when signin-up:', error);
+        setShowErrorModal(true);
       });
   };
 
@@ -123,6 +126,13 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
         {showSuccessModal && (
           <SuccessSignupModal
             setShowSuccessModal={setShowSuccessModal}
+            setShowLoginForm={setShowLoginForm}
+            setShowSignUpForm={setShowSignUpForm}
+          />
+        )}
+        {showErrorModal && (
+          <ErrorSignupModal
+            setShowErrorModal={setShowErrorModal}
             setShowLoginForm={setShowLoginForm}
             setShowSignUpForm={setShowSignUpForm}
           />
