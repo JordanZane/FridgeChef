@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const sendEmailRoute = require('./routes/sendEmail');
+const signupUser = require('./routes/signup');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -37,5 +38,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/send-email', sendEmailRoute);
+app.use('/signup', signupUser);
 
 module.exports = app;

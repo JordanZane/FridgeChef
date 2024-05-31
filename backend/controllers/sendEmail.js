@@ -26,7 +26,7 @@ exports.sendEmail = async (req, res) => {
 
   try {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ionos.fr',
+      host: smtpServer,
       port: smtpPort,
       secure: true,
       auth: {
