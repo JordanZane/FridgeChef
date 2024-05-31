@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo-full.svg';
 
+import ContactSuccess from '../modals/ContactSuccess';
+
 const ContactForm = ({ setShowContactForm }) => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -8,7 +10,9 @@ const ContactForm = ({ setShowContactForm }) => {
     email: '',
     message: '',
   });
+
   const [emailSubmitting, setEmailSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -40,6 +44,13 @@ const ContactForm = ({ setShowContactForm }) => {
       console.error('Error:', error);
     } finally {
       setEmailSubmitting(false);
+      setShowSuccessModal(true);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        message: '',
+      });
     }
   };
 
@@ -113,6 +124,9 @@ const ContactForm = ({ setShowContactForm }) => {
             {emailSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </div>
+        {showSuccessModal && (
+          <ContactSuccess setShowSuccessModal={setShowSuccessModal} />
+        )}
       </form>
     </div>
   );

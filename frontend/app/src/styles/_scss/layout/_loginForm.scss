@@ -36,7 +36,7 @@
       cursor: pointer;
     }
   }
-  .success-signup-container {
+  .success-modal-container {
     background: $color-success;
     position: relative;
     padding: 10px 0;
@@ -44,7 +44,7 @@
     border-radius: 6px;
   }
 
-  .error-signup-container {
+  .error-modal-container {
     background: $color-error;
     position: relative;
     padding: 10px 0;

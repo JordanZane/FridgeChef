@@ -6,7 +6,7 @@ const SignupSuccess = ({
   setShowSignUpForm,
 }) => {
   return (
-    <div className="success-signup-container modal-container">
+    <div className="success-modal-container modal-container">
       <p>
         <span
           onClick={() => {
