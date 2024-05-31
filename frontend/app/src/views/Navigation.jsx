@@ -5,7 +5,7 @@ import logo from '../assets/logo-full.svg';
 import userIcon from '../assets/user-icon.png';
 import formIcon from '../assets/form-icon.svg';
 
-const Navigation = ({ isUserLogIn, setShowContactForm, setShowLogInForm }) => {
+const Navigation = ({ isUserLogIn, setShowContactForm, setShowLoginForm }) => {
   return (
     <header>
       <div className="container">
@@ -36,7 +36,7 @@ const Navigation = ({ isUserLogIn, setShowContactForm, setShowLogInForm }) => {
                 </button>
               </li>
               <li>
-                <button onClick={() => setShowLogInForm(true)}>
+                <button onClick={() => setShowLoginForm(true)}>
                   <img
                     className="user-icon-button"
                     src={userIcon}
