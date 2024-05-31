@@ -2,12 +2,50 @@ import React, { useState } from 'react';
 import logo from '../assets/logo-full.svg';
 
 const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userConfirmPassword, setUserConfirmPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleSignup = (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert('Password & confirm password doesnt match');
+      return;
+    }
+
+    if (!formData.email || !formData.password || !formData.confirmPassword) {
+      alert('Fill all the fields please');
+      return;
+    }
+
+    fetch(`${serverUrl}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+      })
+      .catch((error) => {
+        console.log('Error when signin-up:', error);
+      });
   };
 
   return (
@@ -37,8 +75,8 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
             type="email"
             name="email"
             id="email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
+            value={formData.email}
+            onChange={handlechange}
             required
           />
         </div>
@@ -48,8 +86,8 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
             type="password"
             name="password"
             id="password"
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
+            value={formData.password}
+            onChange={handlechange}
             required
           />
         </div>
@@ -59,8 +97,8 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
             type="password"
             name="confirmPassword"
             id="confirmPassword"
-            value={userConfirmPassword}
-            onChange={(e) => setUserConfirmPassword(e.target.value)}
+            value={formData.confirmPassword}
+            onChange={handlechange}
             required
           />
         </div>
