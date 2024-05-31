@@ -8,7 +8,6 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log('Signup submit');
   };
 
   return (
