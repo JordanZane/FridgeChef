@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../assets/logo-full.svg';
+import logo from '../../assets/logo-full.svg';
 
 const ContactForm = ({ setShowContactForm }) => {
   const [formData, setFormData] = useState({

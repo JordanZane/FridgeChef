@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../assets/logo-full.svg';
+import logo from '../../assets/logo-full.svg';
 
 const LoginForm = ({ setShowLoginForm, setShowSignUpForm }) => {
   const [userEmail, setUserEmail] = useState('');

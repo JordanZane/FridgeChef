@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import logo from '../assets/logo-full.svg';
+import logo from '../../assets/logo-full.svg';
+
+import SuccessSignupModal from '../modals/SignupSuccess';
 
 const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
   const [formData, setFormData] = useState({
@@ -7,6 +9,8 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
     password: '',
     confirmPassword: '',
   });
+
+  const [showSuccessModal, setShowSuccessModal] = useState(true);
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -42,6 +46,7 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
           password: '',
           confirmPassword: '',
         });
+        setShowSuccessModal(true);
       })
       .catch((error) => {
         console.log('Error when signin-up:', error);
@@ -115,6 +120,13 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
             Sign-up
           </button>
         </div>
+        {showSuccessModal && (
+          <SuccessSignupModal
+            setShowSuccessModal={setShowSuccessModal}
+            setShowLoginForm={setShowLoginForm}
+            setShowSignUpForm={setShowSignUpForm}
+          />
+        )}
       </form>
     </div>
   );

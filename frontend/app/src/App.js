@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Navigation from './views/Navigation';
-import ContactForm from './views/ContactForm';
-import LoginForm from './views/LoginForm';
-import SignUpForm from './views/SignupForm';
+import ContactForm from './views/forms/ContactForm';
+import LoginForm from './views/forms/LoginForm';
+import SignUpForm from './views/forms/SignupForm';
 import Home from './pages/Home';
 import Footer from './views/Footer';
 import UserRecipes from './pages/UserRecipes';
