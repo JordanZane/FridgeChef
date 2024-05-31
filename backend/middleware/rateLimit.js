@@ -21,3 +21,10 @@ const sendEmailLimiter = rateLimit({
   message:
     'Too many contact form submissions from this IP, please try again after an hour',
 });
+
+module.exports = {
+  searchLimiter,
+  sendEmailLimiter,
+  saveRecipeLimiter,
+  authLimiter,
+};

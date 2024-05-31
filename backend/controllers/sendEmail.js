@@ -3,10 +3,10 @@ const path = require('path');
 const validator = require('validator');
 const User = require('../models/UserModel');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const EmailPassword = process.env.IONOS_PASSWORD;
 const Email = process.env.IONOS_EMAIL;
+const EmailPassword = process.env.IONOS_PASSWORD;
 const smtpServer = process.env.SMTP_HOST;
 const smtpPort = process.env.SMTP_PORT;
 
@@ -26,9 +26,9 @@ exports.sendEmail = async (req, res) => {
 
   try {
     const transporter = nodemailer.createTransport({
-      host: smtpServer,
+      host: 'smtp.ionos.fr',
       port: smtpPort,
-      secure: false,
+      secure: true,
       auth: {
         user: Email,
         pass: EmailPassword,

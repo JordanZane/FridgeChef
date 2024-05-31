@@ -3,6 +3,9 @@ dotenv.config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+const sendEmailRoute = require('./routes/sendEmail');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -12,6 +15,14 @@ mongoose
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
+);
 app.use((req, res, next) => {
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -24,5 +35,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use('/send-email', sendEmailRoute);
 
 module.exports = app;
