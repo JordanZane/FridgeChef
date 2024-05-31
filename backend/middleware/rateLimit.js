@@ -14,3 +14,10 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
 });
+
+const sendEmailLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message:
+    'Too many contact form submissions from this IP, please try again after an hour',
+});
