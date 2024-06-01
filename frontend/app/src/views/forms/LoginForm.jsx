@@ -1,13 +1,65 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo-full.svg';
+import LoginError from '../modals/LoginError';
 
-const LoginForm = ({ setShowLoginForm, setShowSignUpForm }) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+const LoginForm = ({
+  setShowLoginForm,
+  setShowSignUpForm,
+  setIsUserLogIn,
+  setShowSuccessLoginModal,
+}) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [showErrorLoginModal, setShowErrorLoginModal] = useState(false);
+
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
     console.log('Login submit');
+
+    if (!formData.email || !formData.password) {
+      return;
+    }
+    fetch(`${serverUrl}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('User logged in', data);
+        setIsUserLogIn(true);
+        localStorage.setItem('isLogged', true);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('token', data.token);
+        setFormData({
+          email: '',
+          password: '',
+        });
+        setShowLoginForm(false);
+        setShowSuccessLoginModal(true);
+      })
+      .catch((error) => {
+        setShowErrorLoginModal(true);
+        console.log('Error when logging in: ', error);
+      });
   };
 
   return (
@@ -37,8 +89,8 @@ const LoginForm = ({ setShowLoginForm, setShowSignUpForm }) => {
             type="email"
             name="email"
             id="email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
           />
         </div>
@@ -48,8 +100,8 @@ const LoginForm = ({ setShowLoginForm, setShowSignUpForm }) => {
             type="password"
             name="password"
             id="password"
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </div>
@@ -67,6 +119,9 @@ const LoginForm = ({ setShowLoginForm, setShowSignUpForm }) => {
             Log-in
           </button>
         </div>
+        {showErrorLoginModal && (
+          <LoginError setShowErrorLoginModal={setShowErrorLoginModal} />
+        )}
       </form>
     </div>
   );

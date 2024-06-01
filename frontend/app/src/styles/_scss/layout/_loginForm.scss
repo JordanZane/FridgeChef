@@ -17,41 +17,58 @@
     text-align: center;
     margin-top: 30px;
   }
-  .modal-container {
-    p {
-      margin: 0;
-      font-weight: 500;
-      &:hover {
-        text-decoration: none;
-      }
-      span:hover {
-        text-decoration: underline;
-      }
+}
+.modal-container {
+  z-index: 1;
+  p {
+    margin: 0;
+    font-weight: 500;
+    &:hover {
+      text-decoration: none;
     }
-    .btn-container {
-      position: absolute;
-      top: 2px;
-      right: 10px;
-      margin: 0;
-      cursor: pointer;
+    span:hover {
+      text-decoration: underline;
     }
   }
-  .success-modal-container {
-    background: $color-success;
-    position: relative;
-    padding: 10px 0;
-    margin-top: 30px;
-    border-radius: 6px;
+  .btn-container {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    margin: 0;
+    cursor: pointer;
   }
+}
+.success-modal-container {
+  background: $color-success;
+  position: relative;
+  padding: 10px 0;
+  margin-top: 30px;
+  border-radius: 6px;
+}
 
-  .error-modal-container {
-    background: $color-error;
-    position: relative;
-    padding: 10px 0;
-    margin-top: 30px;
-    border-radius: 6px;
-    p {
-      cursor: default;
-    }
+.error-modal-container {
+  background: $color-error;
+  position: relative;
+  padding: 10px 0;
+  margin-top: 30px;
+  border-radius: 6px;
+  p {
+    cursor: default;
+  }
+}
+
+.login-success-modal {
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  background-color: $color-white;
+  border: 2px solid $color-primary;
+  min-width: 400px;
+  text-align: center;
+  img {
+    width: 48px;
   }
 }

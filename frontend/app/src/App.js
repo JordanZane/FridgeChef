@@ -9,14 +9,18 @@ import Home from './pages/Home';
 import Footer from './views/Footer';
 import UserRecipes from './pages/UserRecipes';
 import RecipeDetails from './views/RecipeDetails';
+import LoginSuccess from './views/modals/LoginSuccess';
 
 import './styles/_scss/main.scss';
 
 function App() {
-  const [isUserLogIn, setIsUserLogIn] = useState(false);
+  const [isUserLogIn, setIsUserLogIn] = useState(() => {
+    return localStorage.getItem('isLogged') === 'true';
+  });
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
 
   return (
     <BrowserRouter>
@@ -32,6 +36,8 @@ function App() {
         <LoginForm
           setShowLoginForm={setShowLoginForm}
           setShowSignUpForm={setShowSignUpForm}
+          setIsUserLogIn={setIsUserLogIn}
+          setShowSuccessLoginModal={setShowSuccessLoginModal}
         />
       )}
       {showSignUpForm && (
@@ -39,6 +45,10 @@ function App() {
           setShowSignUpForm={setShowSignUpForm}
           setShowLoginForm={setShowLoginForm}
         />
+      )}
+
+      {showSuccessLoginModal && (
+        <LoginSuccess setShowSuccessLoginModal={setShowSuccessLoginModal} />
       )}
 
       <Routes>

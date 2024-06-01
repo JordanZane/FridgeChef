@@ -35,13 +35,15 @@ exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user === null) {
-        res.status(401).json({ message: 'Email or password invalid' });
+        return res.status(401).json({ message: 'Email or password invalid' });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            res.status(401).json({ message: 'Email or password invalid' });
+            return res
+              .status(401)
+              .json({ message: 'Email or password invalid' });
           } else {
             console.log('User Loged : ', user);
             res.setHeader('Content-Type', 'application/json');
