@@ -26,6 +26,7 @@ function App() {
     <BrowserRouter>
       <Navigation
         isUserLogIn={isUserLogIn}
+        setIsUserLogIn={setIsUserLogIn}
         setShowContactForm={setShowContactForm}
         setShowLoginForm={setShowLoginForm}
       />
