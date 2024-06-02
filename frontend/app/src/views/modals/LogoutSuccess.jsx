@@ -12,7 +12,7 @@ const LogoutSuccess = ({ setShowSuccessLogoutModal }) => {
 
   return (
     <div className="success-modal-container modal-container login-success-modal">
-      <img src={successIcon} alt="Success log-in" />
+      <img src={successIcon} alt="Success log-out" />
       <p>Your are disconnected !</p>
       <div
         className="btn-container"

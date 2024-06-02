@@ -12,6 +12,7 @@ const RecipeDetails = ({ isUserLogIn }) => {
   const [similarRecipes, setSimilarRecipes] = useState([]);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     const fetchRecipeSteps = () => {
@@ -67,6 +68,29 @@ const RecipeDetails = ({ isUserLogIn }) => {
     navigate(`/recipe-details/${id}`);
   };
 
+  const handleAddToFavorites = () => {
+    const favoriteRecipeData = {
+      title: recipeDetails.title,
+      image: recipeDetails.image,
+    };
+    console.log('add to favorite the recipe : ', favoriteRecipeData);
+    fetch(`${serverUrl}/add-to-favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(favoriteRecipeData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error adding recipe to favorites');
+        }
+      })
+      .catch((error) => {
+        console.error('Error adding recipe to favorites:', error);
+      });
+  };
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -99,7 +123,9 @@ const RecipeDetails = ({ isUserLogIn }) => {
               <p>{parse(recipeDetails.summary)}</p>
               {isUserLogIn && (
                 <div className="btn-container">
-                  <button className="btn-style">Add to favorite</button>
+                  <button onClick={handleAddToFavorites} className="btn-style">
+                    Add to favorite
+                  </button>
                 </div>
               )}
             </div>
