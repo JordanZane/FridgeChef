@@ -4,10 +4,12 @@ dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const sendEmailRoute = require('./routes/sendEmail');
 const signupUser = require('./routes/signup');
 const loginUser = require('./routes/login');
+const logoutUser = require('./routes/logout');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -16,6 +18,7 @@ mongoose
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(
@@ -41,5 +44,6 @@ app.use((req, res, next) => {
 app.use('/send-email', sendEmailRoute);
 app.use('/signup', signupUser);
 app.use('/login', loginUser);
+app.use('/logout', logoutUser);
 
 module.exports = app;

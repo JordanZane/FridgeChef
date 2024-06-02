@@ -35,20 +35,21 @@ const LoginForm = ({
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify(formData),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Login failed');
         }
+
         return response.json();
       })
       .then((data) => {
-        console.log('User logged in', data);
+        console.log('User logged in');
         setIsUserLogIn(true);
         localStorage.setItem('isLogged', true);
         localStorage.setItem('userId', data.userId);
-        localStorage.setItem('token', data.token);
         setFormData({
           email: '',
           password: '',

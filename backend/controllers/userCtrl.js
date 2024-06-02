@@ -46,16 +46,31 @@ exports.login = (req, res, next) => {
               .json({ message: 'Email or password invalid' });
           } else {
             console.log('User Loged : ', user);
+            const token = jwt.sign(
+              { userId: user._id },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: '24h',
+              }
+            );
+
+            res.cookie('token', token, {
+              httpOnly: true,
+              maxAge: 24 * 60 * 60 * 1000,
+              secure: false,
+            });
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
               userId: user._id,
-              token: jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-                expiresIn: '24h',
-              }),
+              token: token,
             });
           }
         })
         .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+exports.logout = (req, res, next) => {
+  res.clearCookie('token').json({ message: 'Logged out successfully' });
 };

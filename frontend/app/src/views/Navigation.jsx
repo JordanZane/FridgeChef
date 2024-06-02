@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import logo from '../assets/logo-full.svg';
@@ -11,11 +11,28 @@ const Navigation = ({
   setShowLoginForm,
   setIsUserLogIn,
 }) => {
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+
   const handleLogout = () => {
-    localStorage.removeItem('isLogged');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('token');
-    setIsUserLogIn(false);
+    fetch(`${serverUrl}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Logout failed');
+        }
+        return response.json();
+      })
+      .then(() => {
+        setIsUserLogIn(false);
+        localStorage.removeItem('isLogged');
+        localStorage.removeItem('userId');
+        setIsUserLogIn(false);
+      })
+      .catch((error) => {
+        console.error('Error when logging out: ', error);
+      });
   };
   return (
     <header>
