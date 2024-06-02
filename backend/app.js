@@ -10,6 +10,7 @@ const sendEmailRoute = require('./routes/sendEmail');
 const signupUser = require('./routes/signup');
 const loginUser = require('./routes/login');
 const logoutUser = require('./routes/logout');
+const addToFavorite = require('./routes/addToFavorite');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -45,5 +46,6 @@ app.use('/send-email', sendEmailRoute);
 app.use('/signup', signupUser);
 app.use('/login', loginUser);
 app.use('/logout', logoutUser);
+app.use('/add-to-favorite', addToFavorite);
 
 module.exports = app;
