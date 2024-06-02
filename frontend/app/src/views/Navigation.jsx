@@ -10,6 +10,7 @@ const Navigation = ({
   setShowContactForm,
   setShowLoginForm,
   setIsUserLogIn,
+  setShowSuccessLogoutModal,
 }) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -28,7 +29,7 @@ const Navigation = ({
         setIsUserLogIn(false);
         localStorage.removeItem('isLogged');
         localStorage.removeItem('userId');
-        setIsUserLogIn(false);
+        setShowSuccessLogoutModal(true);
       })
       .catch((error) => {
         console.error('Error when logging out: ', error);

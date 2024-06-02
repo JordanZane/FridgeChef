@@ -10,6 +10,7 @@ import Footer from './views/Footer';
 import UserRecipes from './pages/UserRecipes';
 import RecipeDetails from './views/RecipeDetails';
 import LoginSuccess from './views/modals/LoginSuccess';
+import LogoutSuccess from './views/modals/LogoutSuccess';
 
 import './styles/_scss/main.scss';
 
@@ -21,6 +22,7 @@ function App() {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
+  const [showSuccessLogoutModal, setShowSuccessLogoutModal] = useState(false);
 
   return (
     <BrowserRouter>
@@ -29,6 +31,7 @@ function App() {
         setIsUserLogIn={setIsUserLogIn}
         setShowContactForm={setShowContactForm}
         setShowLoginForm={setShowLoginForm}
+        setShowSuccessLogoutModal={setShowSuccessLogoutModal}
       />
       {showContactForm && (
         <ContactForm setShowContactForm={setShowContactForm} />
@@ -50,6 +53,10 @@ function App() {
 
       {showSuccessLoginModal && (
         <LoginSuccess setShowSuccessLoginModal={setShowSuccessLoginModal} />
+      )}
+
+      {showSuccessLogoutModal && (
+        <LogoutSuccess setShowSuccessLogoutModal={setShowSuccessLogoutModal} />
       )}
 
       <Routes>
