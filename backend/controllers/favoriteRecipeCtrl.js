@@ -2,12 +2,12 @@ const FavoriteRecipe = require('../models/FavoriteRecipeModel');
 
 exports.addFavoriteRecipe = async (req, res) => {
   try {
-    const { title, image, userId } = req.body;
+    const { title, image } = req.body;
 
     const newFavoriteRecipe = new FavoriteRecipe({
       title,
       image,
-      userId,
+      userId: req.user.userId,
     });
 
     console.log('Favorite recipe added : ', newFavoriteRecipe);
