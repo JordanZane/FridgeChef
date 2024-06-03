@@ -3,6 +3,6 @@ const router = express.Router();
 const favoriteRecipeCtrl = require('../controllers/favoriteRecipeCtrl');
 const auth = require('../middleware/auth');
 
-router.post('/', auth, favoriteRecipeCtrl.addFavoriteRecipe);
+router.get('/', auth, favoriteRecipeCtrl.getFavorites);
 
 module.exports = router;

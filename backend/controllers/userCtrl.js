@@ -55,9 +55,8 @@ exports.login = (req, res, next) => {
             );
 
             res.cookie('token', token, {
-              httpOnly: true,
+              sameSite: 'strict',
               maxAge: 24 * 60 * 60 * 1000,
-              secure: false,
             });
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({

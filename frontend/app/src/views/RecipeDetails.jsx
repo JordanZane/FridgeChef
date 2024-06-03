@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import parse from 'html-react-parser';
 import durationIcon from '../assets/duration-icon.svg';
@@ -69,16 +70,26 @@ const RecipeDetails = ({ isUserLogIn }) => {
   };
 
   const handleAddToFavorites = () => {
+    const userId = localStorage.getItem('userId');
+
+    const token = Cookies.get('token');
+
+    console.log('token :', token);
+    console.log('userId :', userId);
+
     const favoriteRecipeData = {
       title: recipeDetails.title,
       image: recipeDetails.image,
+      userId: userId,
     };
     console.log('add to favorite the recipe : ', favoriteRecipeData);
     fetch(`${serverUrl}/add-to-favorite`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
+      credentials: 'include',
       body: JSON.stringify(favoriteRecipeData),
     })
       .then((response) => {

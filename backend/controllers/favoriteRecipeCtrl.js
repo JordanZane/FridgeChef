@@ -2,8 +2,16 @@ const FavoriteRecipe = require('../models/FavoriteRecipeModel');
 
 exports.addFavoriteRecipe = async (req, res) => {
   try {
-    const { title, image } = req.body;
-    const newFavoriteRecipe = new FavoriteRecipe({ title, image });
+    const { title, image, userId } = req.body;
+
+    const newFavoriteRecipe = new FavoriteRecipe({
+      title,
+      image,
+      userId,
+    });
+
+    console.log('Favorite recipe added : ', newFavoriteRecipe);
+
     await newFavoriteRecipe.save();
 
     res.status(201).json({ message: 'Recipe added to favorites successfully' });
@@ -14,6 +22,7 @@ exports.addFavoriteRecipe = async (req, res) => {
       res
         .status(500)
         .json({ message: 'Error adding recipe to favorites', error });
+      console.log('Error adding to fav: ', error);
     }
   }
 };
