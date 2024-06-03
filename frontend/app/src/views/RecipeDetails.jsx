@@ -64,7 +64,23 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
       .then((data) => {
         setSimilarRecipes(data);
       });
-  }, [id, ApiKey]);
+
+    const checkFavoriteStatus = async () => {
+      const token = Cookies.get('token');
+      const response = await fetch('/check-favorite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ recipeId: recipeDetails.id }),
+      });
+
+      const data = await response.json();
+      setShowFavoriteBtn(!data.isFavorite);
+    };
+    checkFavoriteStatus();
+  }, [id, ApiKey, recipeDetails.id]);
 
   const handleShowDetailsRecipe = (id) => {
     navigate(`/recipe-details/${id}`);
