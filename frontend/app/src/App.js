@@ -11,6 +11,7 @@ import UserRecipes from './pages/UserRecipes';
 import RecipeDetails from './views/RecipeDetails';
 import LoginSuccess from './views/modals/LoginSuccess';
 import LogoutSuccess from './views/modals/LogoutSuccess';
+import AddToFavorite from './views/modals/AddToFavorite';
 
 import './styles/_scss/main.scss';
 
@@ -23,6 +24,7 @@ function App() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
   const [showSuccessLogoutModal, setShowSuccessLogoutModal] = useState(false);
+  const [showAddToFavoriteModal, setShowAddToFavoriteModal] = useState(false);
 
   return (
     <BrowserRouter>
@@ -59,12 +61,21 @@ function App() {
         <LogoutSuccess setShowSuccessLogoutModal={setShowSuccessLogoutModal} />
       )}
 
+      {showAddToFavoriteModal && (
+        <AddToFavorite setShowAddToFavoriteModal={setShowAddToFavoriteModal} />
+      )}
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/my-recipes" element={<UserRecipes />}></Route>
         <Route
           path="/recipe-details/:id"
-          element={<RecipeDetails isUserLogIn={isUserLogIn} />}
+          element={
+            <RecipeDetails
+              isUserLogIn={isUserLogIn}
+              setShowAddToFavoriteModal={setShowAddToFavoriteModal}
+            />
+          }
         ></Route>
       </Routes>
       <Footer />

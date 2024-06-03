@@ -5,12 +5,13 @@ import Cookies from 'js-cookie';
 import parse from 'html-react-parser';
 import durationIcon from '../assets/duration-icon.svg';
 
-const RecipeDetails = ({ isUserLogIn }) => {
+const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [similarRecipes, setSimilarRecipes] = useState([]);
+  const [showFavoriteBtn, setShowFavoriteBtn] = useState(true);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
   const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -95,6 +96,9 @@ const RecipeDetails = ({ isUserLogIn }) => {
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error adding recipe to favorites');
+        } else {
+          setShowAddToFavoriteModal(true);
+          setShowFavoriteBtn(false);
         }
       })
       .catch((error) => {
@@ -134,9 +138,16 @@ const RecipeDetails = ({ isUserLogIn }) => {
               <p>{parse(recipeDetails.summary)}</p>
               {isUserLogIn && (
                 <div className="btn-container">
-                  <button onClick={handleAddToFavorites} className="btn-style">
-                    Add to favorite
-                  </button>
+                  {showFavoriteBtn ? (
+                    <button
+                      onClick={handleAddToFavorites}
+                      className="btn-style"
+                    >
+                      Add to favorite
+                    </button>
+                  ) : (
+                    ''
+                  )}
                 </div>
               )}
             </div>
