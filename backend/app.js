@@ -12,6 +12,7 @@ const signupUser = require('./routes/signup');
 const loginUser = require('./routes/login');
 const logoutUser = require('./routes/logout');
 const addToFavorite = require('./routes/addToFavorite');
+const checkIsFavorite = require('./routes/checkIsFavorite');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -50,5 +51,6 @@ app.use('/signup', signupUser);
 app.use('/login', loginUser);
 app.use('/logout', logoutUser);
 app.use('/add-to-favorite', addToFavorite);
+app.use('/check-favorite', checkIsFavorite);
 
 module.exports = app;

@@ -37,50 +37,77 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
         });
     };
 
-    fetch(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${ApiKey}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error fetching recipe details');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setRecipeDetails(data);
-        fetchRecipeSteps();
-      })
-      .catch((error) => {
-        console.error('Error fetching recipe details:', error);
-      });
+    const fetchRecipeDetails = () => {
+      fetch(
+        `https://api.spoonacular.com/recipes/${id}/information?apiKey=${ApiKey}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error fetching recipe details');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setRecipeDetails(data);
+          fetchRecipeSteps();
+        })
+        .catch((error) => {
+          console.error('Error fetching recipe details:', error);
+        });
+    };
 
-    fetch(`https://api.spoonacular.com/recipes/${id}/similar/?apiKey=${ApiKey}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error fetching similar recipes');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setSimilarRecipes(data);
-      });
+    const fetchSimilarRecipes = () => {
+      fetch(
+        `https://api.spoonacular.com/recipes/${id}/similar?apiKey=${ApiKey}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error fetching similar recipes');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setSimilarRecipes(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching similar recipes:', error);
+        });
+    };
 
+    fetchRecipeDetails();
+    fetchSimilarRecipes();
+  }, [id, ApiKey]);
+
+  useEffect(() => {
     const checkFavoriteStatus = async () => {
-      const token = Cookies.get('token');
-      const response = await fetch('/check-favorite', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ recipeId: recipeDetails.id }),
-      });
+      if (recipeDetails && recipeDetails.id) {
+        console.log('Check if is a favorite recipe');
+        const token = Cookies.get('token');
+        const response = await fetch(`${serverUrl}/check-favorite`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
 
-      const data = await response.json();
-      setShowFavoriteBtn(!data.isFavorite);
+          body: JSON.stringify({ recipeId: recipeDetails.id }),
+        });
+
+        const data = await response.json();
+        console.log('recipe id : ', recipeDetails.id);
+        console.log('response ', data);
+
+        if (data.isFavorite === false) {
+          setShowFavoriteBtn(true);
+        } else {
+          setShowFavoriteBtn(false);
+        }
+        console.log('DataIsFavorite: ', data.isFavorite);
+        console.log('showFavoriteBtn : ', showFavoriteBtn);
+      }
     };
     checkFavoriteStatus();
-  }, [id, ApiKey, recipeDetails.id]);
+  }, [recipeDetails, serverUrl, showFavoriteBtn]);
 
   const handleShowDetailsRecipe = (id) => {
     navigate(`/recipe-details/${id}`);
@@ -88,7 +115,6 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
 
   const handleAddToFavorites = () => {
     const userId = localStorage.getItem('userId');
-
     const token = Cookies.get('token');
 
     console.log('token :', token);
@@ -97,6 +123,7 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
     const favoriteRecipeData = {
       title: recipeDetails.title,
       image: recipeDetails.image,
+      recipeId: recipeDetails.id,
       userId: userId,
     };
     console.log('add to favorite the recipe : ', favoriteRecipeData);
