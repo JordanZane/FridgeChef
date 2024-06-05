@@ -18,7 +18,10 @@ exports.addFavoriteRecipe = async (req, res) => {
     res.status(201).json({ message: 'Recipe added to favorites successfully' });
   } catch (error) {
     if (error.code === 11000) {
-      res.status(409).json({ message: 'Recipe already exists in favorites' });
+      res
+        .status(409)
+        .json({ message: 'Recipe already exists in favorites for this user' });
+      console.log('Error adding to favorites:', error);
     } else {
       res
         .status(500)
