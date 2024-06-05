@@ -13,6 +13,7 @@ const loginUser = require('./routes/login');
 const logoutUser = require('./routes/logout');
 const addToFavorite = require('./routes/addToFavorite');
 const checkIsFavorite = require('./routes/checkIsFavorite');
+const getUserFavoriteRecipe = require('./routes/getUserFavoriteRecipe');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -52,5 +53,6 @@ app.use('/login', loginUser);
 app.use('/logout', logoutUser);
 app.use('/add-to-favorite', addToFavorite);
 app.use('/check-favorite', checkIsFavorite);
+app.use('/get-user-favorite-recipes', getUserFavoriteRecipe);
 
 module.exports = app;

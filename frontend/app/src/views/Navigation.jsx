@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../assets/logo-full.svg';
 import userIcon from '../assets/user-icon.png';
@@ -13,6 +14,7 @@ const Navigation = ({
   setShowSuccessLogoutModal,
 }) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     fetch(`${serverUrl}/logout`, {
@@ -30,6 +32,7 @@ const Navigation = ({
         localStorage.removeItem('isLogged');
         localStorage.removeItem('userId');
         setShowSuccessLogoutModal(true);
+        navigate(`/`);
       })
       .catch((error) => {
         console.error('Error when logging out: ', error);

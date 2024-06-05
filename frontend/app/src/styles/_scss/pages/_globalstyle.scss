@@ -219,3 +219,48 @@ body {
     text-transform: uppercase;
   }
 }
+.recipes-container,
+.favorite-recipes-container {
+  margin-top: 15px;
+  ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 15px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li {
+      background: $color-white;
+      border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+
+      cursor: pointer;
+      .recipes-infos {
+        text-align: center;
+        padding: 0 10px;
+        position: relative;
+        img {
+          width: 100%;
+        }
+      }
+      h3 {
+        margin: 0;
+        padding: 25px 0 15px 0;
+        font-size: 16px;
+        color: $color-secondary;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-family: $font1;
+      }
+      .likes-container {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 14px;
+        img {
+          width: 16px;
+        }
+      }
+    }
+  }
+}

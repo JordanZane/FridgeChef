@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecipeCard from '../components/RecipeCard';
 
-const Home = () => {
+const Home = ({ isHomePage }) => {
   const [inputText, setInputText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [ingredientsSearch, setIngredientsSearch] = useState([]);
@@ -156,12 +156,12 @@ const Home = () => {
           <h2>Recipes</h2>
           <div className="recipes-container">
             <ul>
-              <RecipeCard recipes={recipes} />
+              <RecipeCard isHomePage={isHomePage} recipes={recipes} />
             </ul>
           </div>
           <div className="recipes-container">
             <ul>
-              <RecipeCard recipes={randomRecipes} />
+              <RecipeCard isHomePage={isHomePage} recipes={randomRecipes} />
             </ul>
           </div>
         </div>

@@ -1,6 +1,8 @@
 const FavoriteRecipe = require('../models/FavoriteRecipeModel');
 
 exports.addFavoriteRecipe = async (req, res) => {
+  console.log('Add to favorite route called open');
+
   try {
     const { title, image, recipeId } = req.body;
 
@@ -32,7 +34,7 @@ exports.addFavoriteRecipe = async (req, res) => {
 };
 
 exports.checkIsFavoriteRecipe = async (req, res) => {
-  console.log('CheckIsFavorite backend open');
+  console.log('CheckIsFavorite route called open');
   try {
     const { recipeId } = req.body;
     const userId = req.user.userId;
@@ -53,4 +55,16 @@ exports.checkIsFavoriteRecipe = async (req, res) => {
     res.status(500).json({ message: 'Error checking favorite status', error });
     console.log('Error checking favorite status: ', error);
   }
+};
+
+exports.getUserFavoriteRecipe = async (req, res) => {
+  console.log('Get user favorite recipe route called');
+  const userId = req.user.userId;
+  FavoriteRecipe.find({ userId: userId })
+    .then((favoriteRecipes) => {
+      res.status(200).json({ favoriteRecipes: favoriteRecipes });
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };

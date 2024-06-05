@@ -66,8 +66,11 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/my-recipes" element={<UserRecipes />}></Route>
+        <Route path="/" element={<Home isHomePage={true} />} />
+        <Route
+          path="/my-recipes"
+          element={<UserRecipes isHomePage={false} />}
+        />
         <Route
           path="/recipe-details/:id"
           element={
