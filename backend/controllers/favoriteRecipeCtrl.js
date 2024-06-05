@@ -70,14 +70,17 @@ exports.getUserFavoriteRecipe = async (req, res) => {
 };
 
 exports.removeUserFavoriteRecipe = async (req, res) => {
-  console.log('Remove user favorite recipe');
+  console.log('Remove user favorite recipe route called');
   try {
     const userId = req.user.userId;
-    const recipeId = req.body.recipeId;
+    const recipeId = req.params.recipeId;
     const favoriteRecipe = await FavoriteRecipe.findOne({
-      recipeId: recipeId,
+      _id: recipeId,
       userId: userId,
     });
+    console.log('user id : ', userId);
+    console.log('recipe Id: ', recipeId);
+
     if (!favoriteRecipe) {
       console.log('Favorite recipe not found');
       return res.status(404).json({ message: 'Favorite recipe not found' });

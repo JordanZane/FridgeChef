@@ -54,7 +54,11 @@ const UserRecipes = ({ isHomePage }) => {
         <div className="container">
           <h2>My favorites recipes</h2>
           <ul>
-            <RecipeCard recipes={favoriteRecipes} isHomePage={isHomePage} />
+            <RecipeCard
+              recipes={favoriteRecipes}
+              isHomePage={isHomePage}
+              getUserFavoriteRecipe={getUserFavoriteRecipe}
+            />
           </ul>
         </div>
       </div>
