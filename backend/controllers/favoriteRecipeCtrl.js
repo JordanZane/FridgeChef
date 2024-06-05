@@ -68,3 +68,26 @@ exports.getUserFavoriteRecipe = async (req, res) => {
       res.status(500).json({ error });
     });
 };
+
+exports.removeUserFavoriteRecipe = async (req, res) => {
+  console.log('Remove user favorite recipe');
+  try {
+    const userId = req.user.userId;
+    const recipeId = req.body.recipeId;
+    const favoriteRecipe = await FavoriteRecipe.findOne({
+      recipeId: recipeId,
+      userId: userId,
+    });
+    if (!favoriteRecipe) {
+      console.log('Favorite recipe not found');
+      return res.status(404).json({ message: 'Favorite recipe not found' });
+    }
+    await FavoriteRecipe.deleteOne({ _id: favoriteRecipe._id });
+    res.status(200).json({ message: 'Favorite recipe successfully removed' });
+  } catch (error) {
+    console.log('Error when removing user favorite Recipe :', error);
+    res
+      .status(500)
+      .json({ message: 'Error when removing user favorite recipe' });
+  }
+};

@@ -1,4 +1,14 @@
 .favorite-recipes-page {
+  .favorite-recipes-container {
+    padding-top: 30px;
+    padding-bottom: 40px;
+    background-color: #efefef;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
   .banner-container {
     background-image: url(../../../assets/banner-home.jpg);
     background-repeat: no-repeat;

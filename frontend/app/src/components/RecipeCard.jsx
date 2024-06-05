@@ -20,7 +20,6 @@ const RecipeCard = ({ recipes, isHomePage }) => {
   return (
     <>
       {recipes.map((recipe) => {
-        console.log(isHomePage);
         return (
           <li
             className="recipe-card"

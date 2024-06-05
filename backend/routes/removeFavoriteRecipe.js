@@ -3,6 +3,10 @@ const router = express.Router();
 const favoriteRecipeCtrl = require('../controllers/favoriteRecipeCtrl');
 const auth = require('../middleware/auth');
 
-router.get('/', auth, favoriteRecipeCtrl.getFavorites);
+router.delete(
+  '/:userId/:recipeId',
+  auth,
+  favoriteRecipeCtrl.removeUserFavoriteRecipe
+);
 
 module.exports = router;
