@@ -15,6 +15,7 @@ const addToFavorite = require('./routes/addToFavorite');
 const checkIsFavorite = require('./routes/checkIsFavorite');
 const getUserFavoriteRecipe = require('./routes/getUserFavoriteRecipe');
 const removeFavoriteRecipe = require('./routes/removeFavoriteRecipe');
+const getUserInfos = require('./routes/getUserInfos');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -56,5 +57,6 @@ app.use('/add-to-favorite', addToFavorite);
 app.use('/check-favorite', checkIsFavorite);
 app.use('/get-user-favorite-recipes', getUserFavoriteRecipe);
 app.use('/remove-favorite-recipe', removeFavoriteRecipe);
+app.use('/get-user-infos', getUserInfos);
 
 module.exports = app;

@@ -73,3 +73,17 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res, next) => {
   res.clearCookie('token').json({ message: 'Logged out successfully' });
 };
+
+exports.getUserInfos = (req, res) => {
+  console.log('Get user infos route called');
+  const userId = req.user.userId;
+  User.findOne({ _id: userId })
+    .then((user) => {
+      res.status(200).json({ user });
+      console.log('User infos getted', user);
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+      console.log('Error : ', error);
+    });
+};

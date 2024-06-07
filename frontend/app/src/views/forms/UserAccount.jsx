@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import logo from '../../assets/logo-full.svg';
 
@@ -8,8 +9,36 @@ const UserAccount = ({
   setShowSuccessLogoutModal,
   setShowUserAccount,
 }) => {
+  const [userInfos, setUserInfos] = useState(null);
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
+
+  const getUserInfos = async () => {
+    const token = Cookies.get('token');
+    const userId = localStorage.getItem('userId');
+
+    fetch(`${serverUrl}/get-user-infos/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to get user infos');
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Get user infos : ', data);
+        setUserInfos(data.user);
+      })
+      .catch((error) => {
+        console.log('Error when getting user infos : ', error);
+      });
+  };
 
   const handleLogout = () => {
     console.log('log out function called');
@@ -35,6 +64,11 @@ const UserAccount = ({
         console.error('Error when logging out: ', error);
       });
   };
+
+  useEffect(() => {
+    getUserInfos();
+  }, []);
+
   return (
     <div>
       <div className="forms-container full-layout user-account-container">
@@ -50,10 +84,13 @@ const UserAccount = ({
             <img src={logo} alt="FridgeChef" />
           </h3>
           <div className="user-infos">
-            <p>Email :</p>
-            <p>Password :</p>
-            <button>Modify password</button>
-            <button>Delete my account</button>
+            {userInfos && (
+              <>
+                <p>Email : {userInfos.email}</p>
+                <button>Modify password</button>
+                <button>Delete my account</button>
+              </>
+            )}
           </div>
           <button onClick={handleLogout} className="log-out-btn">
             Log-out
