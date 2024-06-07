@@ -10,34 +10,8 @@ const Navigation = ({
   isUserLogIn,
   setShowContactForm,
   setShowLoginForm,
-  setIsUserLogIn,
-  setShowSuccessLogoutModal,
+  setShowUserAccount,
 }) => {
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    fetch(`${serverUrl}/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Logout failed');
-        }
-        return response.json();
-      })
-      .then(() => {
-        setIsUserLogIn(false);
-        localStorage.removeItem('isLogged');
-        localStorage.removeItem('userId');
-        setShowSuccessLogoutModal(true);
-        navigate(`/`);
-      })
-      .catch((error) => {
-        console.error('Error when logging out: ', error);
-      });
-  };
   return (
     <header>
       <div className="container">
@@ -68,8 +42,14 @@ const Navigation = ({
                 </button>
               </li>
               {isUserLogIn ? (
-                <li onClick={handleLogout}>
-                  <button className="log-out-btn">Log-out</button>
+                <li>
+                  <button onClick={() => setShowUserAccount(true)}>
+                    <img
+                      className="user-icon-button"
+                      src={userIcon}
+                      alt="My account"
+                    />
+                  </button>
                 </li>
               ) : (
                 <li>

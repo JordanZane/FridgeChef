@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import defaultImageRecipe from '../assets/default-image-recipe.jpg';
-import likesIcon from '../assets/likes-icon.svg';
+import likesIcon from '../assets/likes-icon.png';
+import deleteIcon from '../assets/delete-icon.png';
 
 const RecipeCard = ({ recipes, isHomePage, getUserFavoriteRecipe }) => {
   const navigate = useNavigate();
@@ -63,7 +64,11 @@ const RecipeCard = ({ recipes, isHomePage, getUserFavoriteRecipe }) => {
                     className="remove-recipe-btn"
                     onClick={() => removeFavoriteRecipe(recipe._id)}
                   >
-                    Remove
+                    <img
+                      src={deleteIcon}
+                      alt="Remove recipe"
+                      title="Remove recipe"
+                    />
                   </button>
                 </div>
               )}

@@ -12,6 +12,7 @@ import RecipeDetails from './views/RecipeDetails';
 import LoginSuccess from './views/modals/LoginSuccess';
 import LogoutSuccess from './views/modals/LogoutSuccess';
 import AddToFavorite from './views/modals/AddToFavorite';
+import UserAccount from './views/forms/UserAccount';
 
 import './styles/_scss/main.scss';
 
@@ -25,6 +26,7 @@ function App() {
   const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
   const [showSuccessLogoutModal, setShowSuccessLogoutModal] = useState(false);
   const [showAddToFavoriteModal, setShowAddToFavoriteModal] = useState(false);
+  const [showUserAccount, setShowUserAccount] = useState(false);
 
   return (
     <BrowserRouter>
@@ -34,6 +36,7 @@ function App() {
         setShowContactForm={setShowContactForm}
         setShowLoginForm={setShowLoginForm}
         setShowSuccessLogoutModal={setShowSuccessLogoutModal}
+        setShowUserAccount={setShowUserAccount}
       />
       {showContactForm && (
         <ContactForm setShowContactForm={setShowContactForm} />
@@ -63,6 +66,14 @@ function App() {
 
       {showAddToFavoriteModal && (
         <AddToFavorite setShowAddToFavoriteModal={setShowAddToFavoriteModal} />
+      )}
+
+      {showUserAccount && (
+        <UserAccount
+          setShowUserAccount={setShowUserAccount}
+          setIsUserLogIn={setIsUserLogIn}
+          setShowSuccessLogoutModal={setShowSuccessLogoutModal}
+        />
       )}
 
       <Routes>
