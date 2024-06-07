@@ -7,6 +7,7 @@ const LoginForm = ({
   setShowSignUpForm,
   setIsUserLogIn,
   setShowSuccessLoginModal,
+  setShowResetPasswordForm,
 }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -106,7 +107,14 @@ const LoginForm = ({
             required
           />
         </div>
-        <p>Forget your password?</p>
+        <p
+          onClick={() => {
+            setShowResetPasswordForm(true);
+            setShowLoginForm(false);
+          }}
+        >
+          Forget your password?
+        </p>
         <p
           onClick={() => {
             setShowLoginForm(false);

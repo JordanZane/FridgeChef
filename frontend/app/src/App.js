@@ -6,8 +6,9 @@ import ContactForm from './views/forms/ContactForm';
 import LoginForm from './views/forms/LoginForm';
 import SignUpForm from './views/forms/SignupForm';
 import Home from './pages/Home';
-import Footer from './views/Footer';
 import UserRecipes from './pages/UserRecipes';
+import ResetPw from './pages/ResetPw';
+import Footer from './views/Footer';
 import RecipeDetails from './views/RecipeDetails';
 import LoginSuccess from './views/modals/LoginSuccess';
 import LogoutSuccess from './views/modals/LogoutSuccess';
@@ -15,6 +16,7 @@ import AddToFavorite from './views/modals/AddToFavorite';
 import ModifyPwSuccess from './views/modals/ModifyPwSuccess';
 import UserAccount from './views/forms/UserAccount';
 import DeleteAccount from './views/modals/DeleteAccount';
+import ResetPwForm from './views/forms/ResetPwForm';
 
 import './styles/_scss/main.scss';
 
@@ -32,6 +34,7 @@ function App() {
     useState(false);
   const [showUserAccount, setShowUserAccount] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+  const [showResetPasswordForm, setShowResetPasswordForm] = useState(false);
 
   return (
     <BrowserRouter>
@@ -52,6 +55,7 @@ function App() {
           setShowSignUpForm={setShowSignUpForm}
           setIsUserLogIn={setIsUserLogIn}
           setShowSuccessLoginModal={setShowSuccessLoginModal}
+          setShowResetPasswordForm={setShowResetPasswordForm}
         />
       )}
       {showSignUpForm && (
@@ -93,6 +97,10 @@ function App() {
         <DeleteAccount setShowDeleteAccountModal={setShowDeleteAccountModal} />
       )}
 
+      {showResetPasswordForm && (
+        <ResetPwForm setShowResetPasswordForm={setShowResetPasswordForm} />
+      )}
+
       <Routes>
         <Route path="/" element={<Home isHomePage={true} />} />
         <Route
@@ -108,6 +116,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="/Reset-password/:userId" element={<ResetPw />}></Route>
         <Route path="*" element={<Home />}></Route>
       </Routes>
       <Footer />

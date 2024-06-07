@@ -24,7 +24,7 @@ const ContactForm = ({ setShowContactForm }) => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     setEmailSubmitting(true);
-    console.log('Envoi du formulaire...');
+    console.log('Sending message');
 
     try {
       const response = await fetch(`${serverUrl}/send-email`, {
