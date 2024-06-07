@@ -8,10 +8,76 @@ const UserAccount = ({
   setIsUserLogIn,
   setShowSuccessLogoutModal,
   setShowUserAccount,
+  setShowModifyPwSuccessModal,
 }) => {
   const [userInfos, setUserInfos] = useState(null);
+  const [showModifyPasswordForm, setShowModifyPasswordForm] = useState(false);
+  const [modifyPasswordformData, setModifyPasswordformData] = useState({
+    password: '',
+    newPassword: '',
+    confirmNewPassword: '',
+  });
+
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
+
+  const handleShowModifyPasswordForm = () => {
+    if (showModifyPasswordForm) {
+      setShowModifyPasswordForm(false);
+    } else {
+      setShowModifyPasswordForm(true);
+    }
+  };
+
+  const handleChangeModifyPasswordFormData = (e) => {
+    const { name, value } = e.target;
+    setModifyPasswordformData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleModifyPassword = (e) => {
+    e.preventDefault();
+    if (
+      modifyPasswordformData.newPassword !==
+      modifyPasswordformData.confirmNewPassword
+    ) {
+      console.log("Password doesn't match");
+      return;
+    }
+    console.log('Modify password function called');
+    const data = {
+      password: modifyPasswordformData.password,
+      newPassword: modifyPasswordformData.newPassword,
+    };
+    const userId = localStorage.getItem('userId');
+    const token = Cookies.get('token');
+
+    fetch(`${serverUrl}/modify-password/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        console.log(data);
+        if (response.ok) {
+          console.log('Password modify successfully');
+          setShowModifyPasswordForm(false);
+          setShowModifyPwSuccessModal(true);
+          setModifyPasswordformData({
+            password: '',
+            newPassword: '',
+            confirmNewPassword: '',
+          });
+        } else {
+          console.log('Error when trying to modify password');
+        }
+      })
+      .catch((error) => {
+        console.log('Error when trying to modify password : ', error);
+      });
+  };
 
   const getUserInfos = async () => {
     const token = Cookies.get('token');
@@ -87,7 +153,44 @@ const UserAccount = ({
             {userInfos && (
               <>
                 <p>Email : {userInfos.email}</p>
-                <button>Modify password</button>
+                <button onClick={handleShowModifyPasswordForm}>
+                  Modify password
+                </button>
+                {showModifyPasswordForm && (
+                  <form onSubmit={handleModifyPassword}>
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      onChange={handleChangeModifyPasswordFormData}
+                      value={modifyPasswordformData.password}
+                    />
+                    <label htmlFor="newPassword">New password</label>
+                    <input
+                      type="password"
+                      name="newPassword"
+                      id="newPassword"
+                      required
+                      onChange={handleChangeModifyPasswordFormData}
+                      value={modifyPasswordformData.newPassword}
+                    />
+                    <label htmlFor="confirmNewPassword">
+                      Confirm new password
+                    </label>
+                    <input
+                      type="password"
+                      name="confirmNewPassword"
+                      id="confirmNewPassword"
+                      required
+                      onChange={handleChangeModifyPasswordFormData}
+                      value={modifyPasswordformData.confirmNewPassword}
+                    />
+                    <button type="submit">Confirm</button>
+                  </form>
+                )}
+
                 <button>Delete my account</button>
               </>
             )}

@@ -12,6 +12,7 @@ import RecipeDetails from './views/RecipeDetails';
 import LoginSuccess from './views/modals/LoginSuccess';
 import LogoutSuccess from './views/modals/LogoutSuccess';
 import AddToFavorite from './views/modals/AddToFavorite';
+import ModifyPwSuccess from './views/modals/ModifyPwSuccess';
 import UserAccount from './views/forms/UserAccount';
 
 import './styles/_scss/main.scss';
@@ -26,6 +27,8 @@ function App() {
   const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
   const [showSuccessLogoutModal, setShowSuccessLogoutModal] = useState(false);
   const [showAddToFavoriteModal, setShowAddToFavoriteModal] = useState(false);
+  const [showModifyPwSuccessModal, setShowModifyPwSuccessModal] =
+    useState(true);
   const [showUserAccount, setShowUserAccount] = useState(false);
 
   return (
@@ -64,6 +67,12 @@ function App() {
         <LogoutSuccess setShowSuccessLogoutModal={setShowSuccessLogoutModal} />
       )}
 
+      {showModifyPwSuccessModal && (
+        <ModifyPwSuccess
+          setShowModifyPwSuccessModal={setShowModifyPwSuccessModal}
+        />
+      )}
+
       {showAddToFavoriteModal && (
         <AddToFavorite setShowAddToFavoriteModal={setShowAddToFavoriteModal} />
       )}
@@ -73,6 +82,7 @@ function App() {
           setShowUserAccount={setShowUserAccount}
           setIsUserLogIn={setIsUserLogIn}
           setShowSuccessLogoutModal={setShowSuccessLogoutModal}
+          setShowModifyPwSuccessModal={setShowModifyPwSuccessModal}
         />
       )}
 
