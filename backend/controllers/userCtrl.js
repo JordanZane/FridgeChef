@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/UserModel');
+const FavoriteRecipe = require('../models/FavoriteRecipeModel');
 
 exports.signup = (req, res, next) => {
   console.log('signup route called');
@@ -99,7 +100,7 @@ exports.modifyPassword = (req, res, next) => {
       bcrypt.compare(password, user.password).then((isPasswordValid) => {
         if (!isPasswordValid) {
           console.log('Invalid password');
-          res.status(401).json({ message: 'Invalid password' });
+          return res.status(401).json({ message: 'Invalid password' });
         } else {
           bcrypt.hash(newPassword, 10).then((hashedNewPassword) => {
             user.password = hashedNewPassword;
@@ -114,4 +115,37 @@ exports.modifyPassword = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({ error });
     });
+};
+
+exports.deleteAccount = async (req, res, next) => {
+  console.log('Delete account route called');
+  const userId = req.user.userId;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      console.log('Invalid password');
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    const favoriteRecipes = await FavoriteRecipe.find({ userId });
+    console.log(favoriteRecipes);
+    for (const recipe of favoriteRecipes) {
+      await recipe.deleteOne();
+    }
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ message: 'Account deleted successfully' });
+    console.log('Account deleted successfully');
+  } catch (error) {
+    console.error('Error deleting account:', error);
+    res.status(500).json({ error: 'An error occurred while deleting account' });
+  }
 };

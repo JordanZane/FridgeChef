@@ -9,6 +9,7 @@ const UserAccount = ({
   setShowSuccessLogoutModal,
   setShowUserAccount,
   setShowModifyPwSuccessModal,
+  setShowDeleteAccountModal,
 }) => {
   const [userInfos, setUserInfos] = useState(null);
   const [showModifyPasswordForm, setShowModifyPasswordForm] = useState(false);
@@ -17,6 +18,8 @@ const UserAccount = ({
     newPassword: '',
     confirmNewPassword: '',
   });
+  const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
+  const [passwordDeleteAccount, setPasswordDeleteAccount] = useState('');
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
@@ -29,9 +32,21 @@ const UserAccount = ({
     }
   };
 
+  const handleShowDeleteAccountForm = () => {
+    if (showDeleteAccountForm) {
+      setShowDeleteAccountForm(false);
+    } else {
+      setShowDeleteAccountForm(true);
+    }
+  };
+
   const handleChangeModifyPasswordFormData = (e) => {
     const { name, value } = e.target;
-    setModifyPasswordformData((prevData) => ({ ...prevData, [name]: value }));
+    if (name === 'password') {
+      setModifyPasswordformData((prevData) => ({ ...prevData, [name]: value }));
+    } else if (name === 'passwordDeleteAccount') {
+      setPasswordDeleteAccount(value);
+    }
   };
 
   const handleModifyPassword = (e) => {
@@ -131,6 +146,42 @@ const UserAccount = ({
       });
   };
 
+  const handleDeleteUserAccount = (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem('userId');
+    const token = Cookies.get('token');
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+
+    const data = {
+      password: passwordDeleteAccount,
+    };
+
+    fetch(`${serverUrl}/delete-account/${userId}`, {
+      method: 'DELETE',
+      headers: headers,
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Delete account successfully');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('isLogged');
+          setIsUserLogIn(false);
+          setShowUserAccount(false);
+          navigate('/');
+          setShowDeleteAccountModal(true);
+        } else {
+          console.log('Incorrect password');
+        }
+      })
+      .catch((error) => {
+        console.log('Error : ', error);
+      });
+  };
+
   useEffect(() => {
     getUserInfos();
   }, []);
@@ -191,7 +242,23 @@ const UserAccount = ({
                   </form>
                 )}
 
-                <button>Delete my account</button>
+                <button onClick={handleShowDeleteAccountForm}>
+                  Delete my account
+                </button>
+                {showDeleteAccountForm && (
+                  <form onSubmit={handleDeleteUserAccount}>
+                    <label htmlFor="passwordDeleteAccount">Password</label>
+                    <input
+                      type="password"
+                      name="passwordDeleteAccount"
+                      id="passwordDeleteAccount"
+                      required
+                      onChange={handleChangeModifyPasswordFormData}
+                      value={passwordDeleteAccount}
+                    />
+                    <button type="submit">Confirm</button>
+                  </form>
+                )}
               </>
             )}
           </div>

@@ -14,6 +14,7 @@ import LogoutSuccess from './views/modals/LogoutSuccess';
 import AddToFavorite from './views/modals/AddToFavorite';
 import ModifyPwSuccess from './views/modals/ModifyPwSuccess';
 import UserAccount from './views/forms/UserAccount';
+import DeleteAccount from './views/modals/DeleteAccount';
 
 import './styles/_scss/main.scss';
 
@@ -28,8 +29,9 @@ function App() {
   const [showSuccessLogoutModal, setShowSuccessLogoutModal] = useState(false);
   const [showAddToFavoriteModal, setShowAddToFavoriteModal] = useState(false);
   const [showModifyPwSuccessModal, setShowModifyPwSuccessModal] =
-    useState(true);
+    useState(false);
   const [showUserAccount, setShowUserAccount] = useState(false);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
 
   return (
     <BrowserRouter>
@@ -83,7 +85,12 @@ function App() {
           setIsUserLogIn={setIsUserLogIn}
           setShowSuccessLogoutModal={setShowSuccessLogoutModal}
           setShowModifyPwSuccessModal={setShowModifyPwSuccessModal}
+          setShowDeleteAccountModal={setShowDeleteAccountModal}
         />
+      )}
+
+      {showDeleteAccountModal && (
+        <DeleteAccount setShowDeleteAccountModal={setShowDeleteAccountModal} />
       )}
 
       <Routes>
@@ -101,6 +108,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="*" element={<Home />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
