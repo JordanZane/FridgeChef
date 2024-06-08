@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import logo from '../../assets/logo-full.svg';
 
 const ResetPwForm = ({ setShowResetPasswordForm }) => {
@@ -42,7 +43,6 @@ const ResetPwForm = ({ setShowResetPasswordForm }) => {
         <h3>
           Reset password <img src={logo} alt="FridgeChef" />
         </h3>
-
         <button
           onClick={() => setShowResetPasswordForm(false)}
           className="close-form-btn"

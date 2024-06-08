@@ -18,6 +18,7 @@ const removeFavoriteRecipe = require('./routes/removeFavoriteRecipe');
 const getUserInfos = require('./routes/getUserInfos');
 const modifyPasswordUser = require('./routes/modifyPasswordUser');
 const deleteUserAccount = require('./routes/deleteUserAccount');
+const resetPasswordUser = require('./routes/resetPasswordUser');
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -62,5 +63,6 @@ app.use('/remove-favorite-recipe', removeFavoriteRecipe);
 app.use('/get-user-infos', getUserInfos);
 app.use('/modify-password', modifyPasswordUser);
 app.use('/delete-account', deleteUserAccount);
+app.use('/reset-password', resetPasswordUser);
 
 module.exports = app;

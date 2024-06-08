@@ -149,3 +149,35 @@ exports.deleteAccount = async (req, res, next) => {
     res.status(500).json({ error: 'An error occurred while deleting account' });
   }
 };
+
+exports.resetPassword = (req, res, next) => {
+  console.log('Reset password route called');
+
+  const { userId } = req.params;
+  const { newPassword } = req.body;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        console.log('User not found : ', user);
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      return bcrypt
+        .hash(newPassword, 10)
+        .then((hashedPassword) => {
+          user.password = hashedPassword;
+          return user.save();
+        })
+        .then(() => {
+          console.log('Password reset successfully');
+          res.status(200).json({ message: 'Password reset successfully' });
+        });
+    })
+    .catch((error) => {
+      console.error('Error processing password reset:', error);
+      res
+        .status(500)
+        .json({ message: 'An error occurred while resetting the password' });
+    });
+};
