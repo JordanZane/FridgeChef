@@ -95,6 +95,7 @@ body {
     cursor: pointer;
     border: unset;
     background: unset;
+    line-height: 1.7em;
   }
 
   button.btn-style {
@@ -263,5 +264,15 @@ body {
         }
       }
     }
+  }
+}
+.form-content {
+  position: relative;
+  p.error-message {
+    position: absolute;
+    bottom: 0;
+    color: $color-error;
+    font-size: 14px;
+    margin: 0;
   }
 }

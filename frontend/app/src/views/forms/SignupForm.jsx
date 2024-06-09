@@ -13,7 +13,7 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   const handlechange = (e) => {
@@ -23,12 +23,19 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
+
+    setShowErrorMessage(false);
+    setShowErrorModal(false);
+
     if (formData.password !== formData.confirmPassword) {
       setShowErrorModal(true);
+      setShowErrorMessage(true);
       return;
     }
 
     if (!formData.email || !formData.password || !formData.confirmPassword) {
+      setShowErrorModal(true);
+      setShowErrorMessage(true);
       return;
     }
 
@@ -39,7 +46,15 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            console.log(data);
+            throw new Error(data.error._message);
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log(data);
         setFormData({
@@ -49,10 +64,16 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
         });
         setShowSuccessModal(true);
         setShowErrorModal(false);
+        setShowErrorMessage(false);
       })
       .catch((error) => {
-        console.log('Error when signin-up:', error);
-        setShowErrorModal(true);
+        console.log('Error when signing up:', error.message);
+        if (error.message === 'User validation failed') {
+          setShowErrorMessage(true);
+        } else {
+          setShowErrorModal(true);
+          setShowErrorMessage(true);
+        }
       });
   };
 
@@ -87,6 +108,9 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
             onChange={handlechange}
             required
           />
+          {showErrorMessage && (
+            <p className="error-message">Email already registered</p>
+          )}
         </div>
         <div className="form-content">
           <label htmlFor="password">Password*</label>

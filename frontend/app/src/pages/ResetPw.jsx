@@ -8,6 +8,7 @@ const ResetPw = ({ setShowModifyPwSuccessModal }) => {
     newPassword: '',
     confirmNewPassword: '',
   });
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const ResetPw = ({ setShowModifyPwSuccessModal }) => {
     e.preventDefault();
     if (formData.newPassword !== formData.confirmNewPassword) {
       console.log('password doesnt match');
+      setShowErrorMessage(true);
       return;
     }
     console.log('Submitting reset password form function called');
@@ -67,6 +69,9 @@ const ResetPw = ({ setShowModifyPwSuccessModal }) => {
               value={formData.newPassword}
               onChange={handleChange}
             />
+            {showErrorMessage && (
+              <p className="error-message">Password doesn't match</p>
+            )}
           </div>
           <div className="form-content">
             <label htmlFor="confirmNewPassword">Confirm new password</label>
@@ -78,6 +83,9 @@ const ResetPw = ({ setShowModifyPwSuccessModal }) => {
               value={formData.confirmNewPassword}
               onChange={handleChange}
             />
+            {showErrorMessage && (
+              <p className="error-message">Password doesn't match</p>
+            )}
           </div>
           <div className="btn-container">
             <button className="submit-form btn-style" type="submit">

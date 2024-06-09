@@ -24,6 +24,11 @@ exports.signup = (req, res, next) => {
           res.status(201).json({ message: 'User created' });
         })
         .catch((error) => {
+          if (error.code === 11000) {
+            return res
+              .status(400)
+              .json({ message: 'Email already registered' });
+          }
           res.status(400).json({ error });
         });
     })

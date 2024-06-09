@@ -20,7 +20,12 @@ const UserAccount = ({
   });
   const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
   const [passwordDeleteAccount, setPasswordDeleteAccount] = useState('');
-
+  const [showErrorMessageModifyPassword, setShowErrorMessageModifyPassword] =
+    useState(false);
+  const [showErrorPasswordMatching, setShowErrorPasswordMatching] =
+    useState(false);
+  const [showErrorMessageDeleteAccount, setShowErrorMessageDeleteAccount] =
+    useState(false);
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
 
@@ -42,11 +47,12 @@ const UserAccount = ({
 
   const handleChangeModifyPasswordFormData = (e) => {
     const { name, value } = e.target;
-    if (name === 'password') {
-      setModifyPasswordformData((prevData) => ({ ...prevData, [name]: value }));
-    } else if (name === 'passwordDeleteAccount') {
-      setPasswordDeleteAccount(value);
-    }
+    setModifyPasswordformData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleChangeDeleteAccountPassword = (e) => {
+    const { value } = e.target;
+    setPasswordDeleteAccount(value);
   };
 
   const handleModifyPassword = (e) => {
@@ -56,7 +62,10 @@ const UserAccount = ({
       modifyPasswordformData.confirmNewPassword
     ) {
       console.log("Password doesn't match");
+      setShowErrorPasswordMatching(true);
       return;
+    } else {
+      setShowErrorPasswordMatching(false);
     }
     console.log('Modify password function called');
     const data = {
@@ -85,8 +94,11 @@ const UserAccount = ({
             newPassword: '',
             confirmNewPassword: '',
           });
+          setShowErrorMessageModifyPassword(false);
+          setShowErrorPasswordMatching(false);
         } else {
           console.log('Error when trying to modify password');
+          setShowErrorMessageModifyPassword(true);
         }
       })
       .catch((error) => {
@@ -175,6 +187,7 @@ const UserAccount = ({
           setShowDeleteAccountModal(true);
         } else {
           console.log('Incorrect password');
+          setShowErrorMessageDeleteAccount(true);
         }
       })
       .catch((error) => {
@@ -204,67 +217,106 @@ const UserAccount = ({
             {userInfos && (
               <>
                 <p>Email : {userInfos.email}</p>
-                <button onClick={handleShowModifyPasswordForm}>
-                  Modify password
-                </button>
+                <div className="btn-container">
+                  <button onClick={handleShowModifyPasswordForm}>
+                    Modify password
+                  </button>
+                </div>
                 {showModifyPasswordForm && (
                   <form onSubmit={handleModifyPassword}>
-                    <label htmlFor="password">Password</label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      required
-                      onChange={handleChangeModifyPasswordFormData}
-                      value={modifyPasswordformData.password}
-                    />
-                    <label htmlFor="newPassword">New password</label>
-                    <input
-                      type="password"
-                      name="newPassword"
-                      id="newPassword"
-                      required
-                      onChange={handleChangeModifyPasswordFormData}
-                      value={modifyPasswordformData.newPassword}
-                    />
-                    <label htmlFor="confirmNewPassword">
-                      Confirm new password
-                    </label>
-                    <input
-                      type="password"
-                      name="confirmNewPassword"
-                      id="confirmNewPassword"
-                      required
-                      onChange={handleChangeModifyPasswordFormData}
-                      value={modifyPasswordformData.confirmNewPassword}
-                    />
-                    <button type="submit">Confirm</button>
+                    <div className="form-contents">
+                      {' '}
+                      <div className="form-content">
+                        <label htmlFor="password">Password</label>
+                        <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          required
+                          onChange={handleChangeModifyPasswordFormData}
+                          value={modifyPasswordformData.password}
+                        />
+                        {showErrorMessageModifyPassword && (
+                          <p className="error-message">Incorrect password</p>
+                        )}
+                      </div>
+                      <div className="form-content">
+                        <label htmlFor="newPassword">New password</label>
+                        <input
+                          type="password"
+                          name="newPassword"
+                          id="newPassword"
+                          required
+                          onChange={handleChangeModifyPasswordFormData}
+                          value={modifyPasswordformData.newPassword}
+                        />
+                        {showErrorPasswordMatching && (
+                          <p className="error-message">
+                            Password doesn't match{' '}
+                          </p>
+                        )}
+                      </div>
+                      <div className="form-content">
+                        <label htmlFor="confirmNewPassword">
+                          Confirm new password
+                        </label>
+                        <input
+                          type="password"
+                          name="confirmNewPassword"
+                          id="confirmNewPassword"
+                          required
+                          onChange={handleChangeModifyPasswordFormData}
+                          value={modifyPasswordformData.confirmNewPassword}
+                        />
+                        {showErrorPasswordMatching && (
+                          <p className="error-message">
+                            Password doesn't match
+                          </p>
+                        )}
+                      </div>
+                      <button className="btn-style" type="submit">
+                        Confirm
+                      </button>
+                    </div>
                   </form>
                 )}
+                <div className="btn-container">
+                  <button onClick={handleShowDeleteAccountForm}>
+                    Delete my account
+                  </button>
+                </div>
 
-                <button onClick={handleShowDeleteAccountForm}>
-                  Delete my account
-                </button>
                 {showDeleteAccountForm && (
                   <form onSubmit={handleDeleteUserAccount}>
-                    <label htmlFor="passwordDeleteAccount">Password</label>
-                    <input
-                      type="password"
-                      name="passwordDeleteAccount"
-                      id="passwordDeleteAccount"
-                      required
-                      onChange={handleChangeModifyPasswordFormData}
-                      value={passwordDeleteAccount}
-                    />
-                    <button type="submit">Confirm</button>
+                    <div className="form-contents">
+                      <div className="form-content">
+                        <label htmlFor="passwordDeleteAccount">Password</label>
+                        <input
+                          type="password"
+                          name="passwordDeleteAccount"
+                          id="passwordDeleteAccount"
+                          required
+                          onChange={handleChangeDeleteAccountPassword}
+                          value={passwordDeleteAccount}
+                        />
+                        {showErrorMessageDeleteAccount && (
+                          <p className="error-message">Incorrect password</p>
+                        )}
+                      </div>
+                      <button className="btn-style error-style" type="submit">
+                        Confirm
+                      </button>
+                    </div>
                   </form>
                 )}
               </>
             )}
           </div>
-          <button onClick={handleLogout} className="log-out-btn">
-            Log-out
-          </button>
+          <div className="btn-container">
+            <button onClick={handleLogout} className="log-out-btn">
+              Log-out
+            </button>
+          </div>
         </div>
       </div>
     </div>

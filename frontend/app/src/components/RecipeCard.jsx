@@ -87,8 +87,11 @@ const RecipeCard = ({ recipes, isHomePage, getUserFavoriteRecipe }) => {
                     handleShowDetailsRecipe(recipe.id || recipe.recipeId)
                   }
                   title={recipe.title}
-                  src={recipe.image || defaultImageRecipe}
+                  src={recipe.image ? recipe.image : defaultImageRecipe}
                   alt={recipe.title}
+                  onError={(e) => {
+                    e.target.src = defaultImageRecipe;
+                  }}
                 />
               </div>
             </div>

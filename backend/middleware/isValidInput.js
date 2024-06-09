@@ -6,10 +6,7 @@ exports.validateInput = [
     .isEmail()
     .normalizeEmail()
     .withMessage('Invalid email address'),
-  body('password')
-    .trim()
-    .isLength({ min: 6 })
-    .withMessage('Password must contain at least 6 characters'),
+  body('password').trim(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
