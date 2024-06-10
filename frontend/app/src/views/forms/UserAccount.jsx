@@ -206,6 +206,7 @@ const UserAccount = ({
           <button
             onClick={() => setShowUserAccount(false)}
             className="close-form-btn"
+            type="button"
           >
             x
           </button>

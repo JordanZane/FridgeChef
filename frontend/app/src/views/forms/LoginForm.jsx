@@ -82,6 +82,7 @@ const LoginForm = ({
         <button
           className="close-form-btn"
           onClick={() => setShowLoginForm(false)}
+          type="button"
         >
           x
         </button>

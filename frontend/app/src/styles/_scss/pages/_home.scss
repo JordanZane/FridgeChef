@@ -33,8 +33,9 @@
         border: unset;
         border-radius: 50px;
         padding: 0 15px;
-        position: relative;
-        left: -60px;
+        height: 100%;
+        position: absolute;
+        right: 0;
         font-weight: 600;
         @include transition(0.2s);
         &:hover {

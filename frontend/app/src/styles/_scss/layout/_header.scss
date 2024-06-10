@@ -3,6 +3,16 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .logo-container {
+      img {
+        @include respond-to('tablets') {
+          width: 80px;
+        }
+        @include respond-to('phones') {
+          width: 60px;
+        }
+      }
+    }
     nav {
       ul {
         display: flex;
@@ -14,12 +24,21 @@ header {
           font-weight: bold;
           text-transform: uppercase;
           position: relative;
+          @include respond-to('phones') {
+            margin-right: 15px;
+          }
           &:last-child {
             margin-right: 0;
           }
           a {
             text-decoration: none;
             position: relative;
+            @include respond-to('tablets') {
+              font-size: 15px;
+            }
+            @include respond-to('phones') {
+              font-size: 14px;
+            }
             &:visited {
               color: $color-black;
             }
@@ -56,6 +75,12 @@ header {
             font-weight: bold;
             text-transform: uppercase;
             padding: 0;
+            @include respond-to('tablets') {
+              font-size: 15px;
+            }
+            @include respond-to('phones') {
+              font-size: 14px;
+            }
             .user-icon-button {
               width: 33px;
             }

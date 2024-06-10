@@ -52,6 +52,7 @@ const ResetPwForm = ({ setShowResetPasswordForm }) => {
         <button
           onClick={() => setShowResetPasswordForm(false)}
           className="close-form-btn"
+          type="button"
         >
           x
         </button>

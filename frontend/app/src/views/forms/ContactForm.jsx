@@ -64,6 +64,7 @@ const ContactForm = ({ setShowContactForm }) => {
         <button
           className="close-form-btn"
           onClick={() => setShowContactForm(false)}
+          type="button"
         >
           x
         </button>

@@ -95,6 +95,7 @@ const SignUpForm = ({ setShowSignUpForm, setShowLoginForm }) => {
         <button
           className="close-form-btn"
           onClick={() => setShowSignUpForm(false)}
+          type="button"
         >
           x
         </button>

@@ -4,7 +4,7 @@ body {
   font-size: 18px;
   margin: 0;
   letter-spacing: 1px;
-  @include respond-to('small') {
+  @include respond-to('phones') {
     font-size: 16px;
   }
 
@@ -12,6 +12,15 @@ body {
     margin: auto;
     max-width: 1600px;
     padding: 0 25px;
+    @include respond-to('laptops') {
+      max-width: 1000px;
+    }
+    @include respond-to('ipad') {
+      max-width: 800px;
+    }
+    @include respond-to('phones') {
+      max-width: 500px;
+    }
   }
 
   .title {
@@ -28,11 +37,8 @@ body {
     padding: 40px 0;
     color: $color-white;
     margin: 25px 0 0 0;
-    @include respond-to('medium') {
-      font-size: 30px;
-    }
-    @include respond-to('small') {
-      font-size: 25px;
+    @include respond-to('phones') {
+      font-size: 58px;
     }
   }
 
@@ -160,6 +166,11 @@ body {
   min-width: 500px;
   @include transition(0.3s);
   animation: scaling 0.3s linear forwards;
+  @include respond-to('tablets') {
+    min-width: unset;
+    width: 100%;
+    margin: 0 15px;
+  }
   h3 {
     padding: 0;
     margin: 0;
@@ -231,6 +242,12 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    @include respond-to('tablets') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include respond-to('phones') {
+      grid-template-columns: repeat(1, 1fr);
+    }
     li {
       background: $color-white;
       border-radius: 8px;

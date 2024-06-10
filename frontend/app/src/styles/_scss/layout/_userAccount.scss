@@ -1,6 +1,9 @@
 .user-account-container {
   .form-style {
     min-width: 800px;
+    @include respond-to('tablets') {
+      min-width: unset;
+    }
     .form-contents {
       display: flex;
       align-items: end;

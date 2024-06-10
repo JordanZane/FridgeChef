@@ -31,7 +31,7 @@ const Navigation = ({
                 </li>
               )}
               <li>
-                <button onClick={() => setShowContactForm(true)}>
+                <button onClick={() => setShowContactForm(true)} type="button">
                   Contact
                   <img
                     className="contact-form-button"
@@ -42,7 +42,10 @@ const Navigation = ({
               </li>
               {isUserLogIn ? (
                 <li>
-                  <button onClick={() => setShowUserAccount(true)}>
+                  <button
+                    onClick={() => setShowUserAccount(true)}
+                    type="button"
+                  >
                     <img
                       className="user-icon-button"
                       src={userIcon}
@@ -52,7 +55,7 @@ const Navigation = ({
                 </li>
               ) : (
                 <li>
-                  <button onClick={() => setShowLoginForm(true)}>
+                  <button onClick={() => setShowLoginForm(true)} type="button">
                     <img
                       className="user-icon-button"
                       src={userIcon}

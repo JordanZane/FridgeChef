@@ -101,34 +101,38 @@ const Home = ({ isHomePage }) => {
       <div className="banner-container">
         <div className="container">
           <h1>FridgeChef</h1>
-          <div className="search-ingredients-input">
-            <input
-              type="text"
-              id="ingredients"
-              name="ingredients"
-              placeholder="Add ingredients to find recipes (flour, beef, bread, eggs...)"
-              value={inputText}
-              onChange={handleInputChange}
-            />
-            <button type="submit" onClick={handleAddIngredients}>
-              Add
-            </button>
-            {suggestions.length > 0 && (
-              <div className="suggestions-container">
-                <ul>
-                  {suggestions.map((suggestion, index) => (
-                    <li key={index}>
-                      <button
-                        className="suggestion"
-                        onClick={(e) => handleSuggestionsClick(suggestion.name)}
-                      >
-                        {suggestion.name}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          <div className="search-aggredients-input-container">
+            <div className="search-ingredients-input">
+              <input
+                type="text"
+                id="ingredients"
+                name="ingredients"
+                placeholder="Add ingredients to find recipes (flour, beef, bread, eggs...)"
+                value={inputText}
+                onChange={handleInputChange}
+              />
+              <button type="submit" onClick={handleAddIngredients}>
+                Add
+              </button>
+              {suggestions.length > 0 && (
+                <div className="suggestions-container">
+                  <ul>
+                    {suggestions.map((suggestion, index) => (
+                      <li key={index}>
+                        <button
+                          className="suggestion"
+                          onClick={(e) =>
+                            handleSuggestionsClick(suggestion.name)
+                          }
+                        >
+                          {suggestion.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="search-ingredients-container">
