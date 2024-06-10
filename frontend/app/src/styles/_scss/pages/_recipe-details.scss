@@ -47,12 +47,14 @@
   }
   .flex-container {
     display: flex;
-    margin-top: 15px;
+    margin-top: 50px;
   }
   .infos-details {
     width: 80%;
     padding-right: 200px;
     .recipe-instructions {
+      margin-top: 50px;
+
       ul {
         padding: 0;
         li {

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-
+import ContactSuccess from '../modals/ContactSuccess';
 import logo from '../../assets/logo-full.svg';
 
 const ResetPwForm = ({ setShowResetPasswordForm }) => {
   const [userEmail, setUserEmail] = useState('');
   const [emailSubmitting, setEmailSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -23,8 +25,12 @@ const ResetPwForm = ({ setShowResetPasswordForm }) => {
       const data = await response.json();
       if (response.ok) {
         console.log('Email sending successfully:', data);
+        setShowSuccessModal(true);
+        setShowErrorMessage(false);
       } else {
         console.error('Error submitting message:', data);
+        setShowErrorMessage(true);
+        setShowSuccessModal(false);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -59,12 +65,16 @@ const ResetPwForm = ({ setShowResetPasswordForm }) => {
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
           />
+          {showErrorMessage && <p className="error-message">Email not found</p>}
         </div>
         <div className="btn-container">
           <button className="submit-form btn-style" type="submit">
             {emailSubmitting ? 'Submitting...' : 'Reset password'}
           </button>
         </div>
+        {showSuccessModal && (
+          <ContactSuccess setShowSuccessModal={setShowSuccessModal} />
+        )}
       </form>
     </div>
   );
