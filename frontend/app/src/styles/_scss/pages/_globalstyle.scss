@@ -173,6 +173,9 @@ body {
       position: absolute;
       right: 30px;
       top: 6px;
+      @include respond-to('phones') {
+        width: 80px;
+      }
     }
   }
   .close-form-btn {

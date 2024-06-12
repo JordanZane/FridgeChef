@@ -6,6 +6,12 @@
   .header-details {
     background-color: $color-bg;
     padding: 50px 0;
+    .flex-container {
+      margin-top: 25px;
+      @include respond-to('tablets') {
+        flex-direction: row;
+      }
+    }
     .details-container {
       display: flex;
       @include respond-to('tablets') {
@@ -15,8 +21,13 @@
         padding-left: 50px;
         max-width: 750px;
         position: relative;
+        @include respond-to('laptops') {
+          max-width: 550px;
+        }
         @include respond-to('tablets') {
           padding-left: 0;
+          text-align: center;
+          max-width: 100%;
         }
         @include respond-to('phones') {
           text-align: center;
@@ -55,10 +66,19 @@
       @include respond-to('tablets') {
         text-align: center;
       }
+      img {
+        @include respond-to('tablets') {
+          width: 50%;
+        }
+        @include respond-to('phones') {
+          width: 100%;
+        }
+      }
     }
   }
   .flex-container {
     display: flex;
+    justify-content: space-between;
     margin-top: 50px;
     @include respond-to('tablets') {
       flex-direction: column;
@@ -73,7 +93,6 @@
     }
     .recipe-instructions {
       margin-top: 50px;
-
       ul {
         padding: 0;
         li {

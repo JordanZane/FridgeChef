@@ -12,6 +12,7 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [similarRecipes, setSimilarRecipes] = useState([]);
   const [showFavoriteBtn, setShowFavoriteBtn] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
   const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -49,10 +50,13 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
         })
         .then((data) => {
           setRecipeDetails(data);
+          console.log('Recipe details:', data);
           fetchRecipeSteps();
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching recipe details:', error);
+          setLoading(false);
         });
     };
 
@@ -156,10 +160,9 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
     return text.substring(0, maxLength) + '...';
   };
 
-  if (!recipeDetails) {
+  if (loading) {
     return <div>Loading...</div>;
   }
-
   return (
     <main className="recipe-details-page">
       <div className="header-details">
@@ -174,25 +177,26 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
             </div>
             <div className="details-content">
               <h1>{recipeDetails.title}</h1>
-
               <p>{parse(recipeDetails.summary)}</p>
-              {isUserLogIn && (
-                <div className="btn-container">
-                  {showFavoriteBtn ? (
-                    <button
-                      onClick={handleAddToFavorites}
-                      className="btn-style"
-                    >
-                      Add to favorite
-                    </button>
-                  ) : (
-                    ''
-                  )}
+              <div className="flex-container">
+                {isUserLogIn && (
+                  <div className="btn-container">
+                    {showFavoriteBtn ? (
+                      <button
+                        onClick={handleAddToFavorites}
+                        className="btn-style"
+                      >
+                        Add to favorite
+                      </button>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                )}
+                <div className="duration-container">
+                  <img src={durationIcon} alt="Duration" />
+                  <p>{recipeDetails.readyInMinutes}min</p>
                 </div>
-              )}
-              <div className="duration-container">
-                <img src={durationIcon} alt="Duration" />
-                <p>{recipeDetails.readyInMinutes}min</p>
               </div>
             </div>
           </div>

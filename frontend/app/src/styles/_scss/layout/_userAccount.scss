@@ -8,6 +8,9 @@
       display: flex;
       align-items: end;
       margin-top: 15px;
+      @include respond-to('tablets') {
+        flex-wrap: wrap;
+      }
       .form-content {
         margin-right: 15px;
         position: relative;
@@ -25,6 +28,9 @@
         text-transform: capitalize;
         background-color: $color-success;
         border-color: $color-success;
+        @include respond-to('tablets') {
+          margin-bottom: 10px;
+        }
         &:hover {
           background-color: unset;
           color: $color-success;
@@ -40,6 +46,9 @@
       }
       input {
         margin-bottom: 0;
+        @include respond-to('tablets') {
+          margin-bottom: 10px;
+        }
       }
     }
     .log-out-btn {
