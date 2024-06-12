@@ -174,10 +174,7 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
             </div>
             <div className="details-content">
               <h1>{recipeDetails.title}</h1>
-              <div className="duration-container">
-                <img src={durationIcon} alt="Duration" />
-                <p>{recipeDetails.readyInMinutes}min</p>
-              </div>
+
               <p>{parse(recipeDetails.summary)}</p>
               {isUserLogIn && (
                 <div className="btn-container">
@@ -193,6 +190,10 @@ const RecipeDetails = ({ isUserLogIn, setShowAddToFavoriteModal }) => {
                   )}
                 </div>
               )}
+              <div className="duration-container">
+                <img src={durationIcon} alt="Duration" />
+                <p>{recipeDetails.readyInMinutes}min</p>
+              </div>
             </div>
           </div>
         </div>

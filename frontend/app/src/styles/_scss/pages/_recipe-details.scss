@@ -8,16 +8,28 @@
     padding: 50px 0;
     .details-container {
       display: flex;
+      @include respond-to('tablets') {
+        flex-direction: column;
+      }
       .details-content {
         padding-left: 50px;
         max-width: 750px;
         position: relative;
+        @include respond-to('tablets') {
+          padding-left: 0;
+        }
+        @include respond-to('phones') {
+          text-align: center;
+        }
         h1 {
           color: $color-primary;
-          font-size: 48px;
+          font-size: 36px;
           padding: 0;
           margin-top: 0;
           margin-bottom: 15px;
+          @include respond-to('tablets') {
+            font-size: 28px;
+          }
         }
         h2 {
           font-size: 22px;
@@ -26,9 +38,6 @@
           font-size: 16px;
         }
         .duration-container {
-          position: absolute;
-          top: 0;
-          right: -25px;
           img {
             width: 46px;
           }
@@ -43,15 +52,25 @@
     }
     .image-container {
       margin-top: 15px;
+      @include respond-to('tablets') {
+        text-align: center;
+      }
     }
   }
   .flex-container {
     display: flex;
     margin-top: 50px;
+    @include respond-to('tablets') {
+      flex-direction: column;
+    }
   }
   .infos-details {
     width: 80%;
     padding-right: 200px;
+    @include respond-to('tablets') {
+      padding-right: 0;
+      width: 100%;
+    }
     .recipe-instructions {
       margin-top: 50px;
 
@@ -98,6 +117,9 @@
   }
   .similar-recipes-container {
     width: 20%;
+    @include respond-to('tablets') {
+      width: unset;
+    }
     h3 {
       text-transform: lowercase;
       font-family: $font1;

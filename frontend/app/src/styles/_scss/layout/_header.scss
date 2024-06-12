@@ -26,6 +26,7 @@ header {
           position: relative;
           @include respond-to('phones') {
             margin-right: 15px;
+            text-transform: unset;
           }
           &:last-child {
             margin-right: 0;
@@ -80,6 +81,7 @@ header {
             }
             @include respond-to('phones') {
               font-size: 14px;
+              text-transform: unset;
             }
             .user-icon-button {
               width: 33px;
@@ -88,6 +90,9 @@ header {
               position: relative;
               top: -5px;
               width: 40px;
+              @include respond-to('phones') {
+                display: none;
+              }
             }
           }
           .log-out-btn {
