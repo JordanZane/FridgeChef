@@ -59,7 +59,7 @@
 
 .login-success-modal {
   margin: auto;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -68,6 +68,9 @@
   border: 2px solid $color-primary;
   min-width: 400px;
   text-align: center;
+  @include respond-to('phones') {
+    min-width: 200px;
+  }
   img {
     width: 48px;
   }

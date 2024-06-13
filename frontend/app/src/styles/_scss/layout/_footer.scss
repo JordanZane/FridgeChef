@@ -4,6 +4,9 @@ footer {
   .footer-content {
     display: flex;
     align-items: center;
+    @include respond-to('phones') {
+      flex-direction: column;
+    }
     .logo-container {
       img {
         width: 90px;
@@ -14,6 +17,9 @@ footer {
       color: $color-primary;
       font-weight: 600;
       font-size: 16px;
+      @include respond-to('phones') {
+        text-align: center;
+      }
       a {
         color: $color-primary;
         text-decoration: underline;
