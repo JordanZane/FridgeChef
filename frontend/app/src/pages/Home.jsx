@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecipeCard from '../components/RecipeCard';
+import Loader from '../components/Loader';
 
 const Home = ({ isHomePage }) => {
   const [inputText, setInputText] = useState('');
@@ -7,6 +8,7 @@ const Home = ({ isHomePage }) => {
   const [ingredientsSearch, setIngredientsSearch] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [randomRecipes, setRandomRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const ApiKey = process.env.REACT_APP_API_KEY;
 
@@ -62,8 +64,10 @@ const Home = ({ isHomePage }) => {
         .then((data) => {
           const sortedRecipes = data.sort((a, b) => b.likes - a.likes);
           setRecipes(sortedRecipes);
+          setLoading(false);
         })
         .catch((error) => {
+          setLoading(false);
           console.error('Error fetching recipes:', error);
         });
     };
@@ -83,9 +87,11 @@ const Home = ({ isHomePage }) => {
             (a, b) => b.aggregateLikes - a.aggregateLikes
           );
           setRandomRecipes(sortedRandomRecipes);
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching recipes:', error);
+          setLoading(false);
         });
     };
 
@@ -160,14 +166,22 @@ const Home = ({ isHomePage }) => {
         <div className="container">
           <h2>Recipes</h2>
           <div className="recipes-container">
-            <ul>
-              <RecipeCard isHomePage={isHomePage} recipes={recipes} />
-            </ul>
+            {loading ? (
+              <Loader />
+            ) : (
+              <ul>
+                <RecipeCard isHomePage={isHomePage} recipes={recipes} />
+              </ul>
+            )}
           </div>
           <div className="recipes-container">
-            <ul>
-              <RecipeCard isHomePage={isHomePage} recipes={randomRecipes} />
-            </ul>
+            {loading ? (
+              <Loader />
+            ) : (
+              <ul>
+                <RecipeCard isHomePage={isHomePage} recipes={randomRecipes} />
+              </ul>
+            )}
           </div>
         </div>
       </div>
