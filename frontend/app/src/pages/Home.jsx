@@ -110,6 +110,7 @@ const Home = ({ isHomePage }) => {
                 placeholder="Add ingredients to find recipes (flour, beef, bread, eggs...)"
                 value={inputText}
                 onChange={handleInputChange}
+                autoComplete="off"
               />
               <button type="submit" onClick={handleAddIngredients}>
                 Add

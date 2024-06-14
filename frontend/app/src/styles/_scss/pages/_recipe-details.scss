@@ -6,6 +6,12 @@
   .header-details {
     background-color: $color-bg;
     padding: 50px 0;
+    @include respond-to('tablets') {
+      padding: 25px 0;
+    }
+    @include respond-to('phones') {
+      padding: 15px 0;
+    }
     .flex-container {
       margin-top: 25px;
       @include respond-to('tablets') {
@@ -40,6 +46,7 @@
           margin-bottom: 15px;
           @include respond-to('tablets') {
             font-size: 28px;
+            margin-top: 15px;
           }
         }
         h2 {
@@ -82,6 +89,11 @@
     margin-top: 50px;
     @include respond-to('tablets') {
       flex-direction: column;
+      margin-top: 25px;
+    }
+    @include respond-to('phones') {
+      flex-direction: column;
+      margin-top: 15px;
     }
   }
   .infos-details {
