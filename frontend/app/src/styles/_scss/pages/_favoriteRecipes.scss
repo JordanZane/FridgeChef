@@ -1,11 +1,10 @@
 .favorite-recipes-page {
   .favorite-recipes-container {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 40px;
     background-color: #efefef;
-
     h2 {
-      margin: 0;
+      margin-top: 0;
     }
   }
 
@@ -14,6 +13,15 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding: 50px 0;
-    text-align: center;
+    min-height: 215px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include respond-to('phones') {
+      min-height: unset;
+    }
+    h1 {
+      margin-bottom: 0;
+    }
   }
 }

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import Navigation from './views/Navigation';
 import ContactForm from './views/forms/ContactForm';
@@ -35,6 +36,25 @@ function App() {
   const [showUserAccount, setShowUserAccount] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showResetPasswordForm, setShowResetPasswordForm] = useState(false);
+
+  useEffect(() => {
+    const checkTokenValidity = () => {
+      const token = Cookies.get('token');
+
+      if (!token) {
+        localStorage.removeItem('userId');
+        localStorage.setItem('isLogged', 'false');
+        console.log('Token expired or missing !');
+        window.location.reload();
+      } else {
+        console.log('Valid token !');
+      }
+    };
+
+    const interval = setInterval(checkTokenValidity, 15 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <BrowserRouter>

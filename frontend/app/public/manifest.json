@@ -1,0 +1,8 @@
+{
+  "short_name": "FridgeChef",
+  "name": "FridgeChef - What's in your fridge application",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#e76f51",
+  "background_color": "#ffffff"
+}

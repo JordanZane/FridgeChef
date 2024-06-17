@@ -23,11 +23,11 @@ const Navigation = ({
           <nav>
             <ul>
               <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/">Recipes</NavLink>
               </li>
               {isUserLogIn && (
                 <li>
-                  <NavLink to="/my-recipes">My recipes</NavLink>
+                  <NavLink to="/my-recipes">My favorites</NavLink>
                 </li>
               )}
               <li>
