@@ -44,3 +44,6 @@ FridgeChef allows users to search for recipes using keywords or ingredients they
 **Nodemailer :** For sending emails from the server.
 
 **Express Rate Limit** : For basic rate-limiting middleware.
+
+## Visit the website
+=> https://fridgechef.zaenithweb.fr/
